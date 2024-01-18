@@ -1,0 +1,20 @@
+<nav
+  class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top"
+>
+  <div class="container-fluid">
+    <div class="navbar-wrapper">
+      <a class="navbar-brand" href="javascript:void(0)">{{ getTitle() }}</a>
+    </div>
+
+    <div class="btn btn-primary" (click)="logout()">
+      <mat-icon
+        class="mr-2"
+        style="font-size: 21px"
+        aria-hidden="false"
+        aria-label="List"
+        fontIcon="exit_to_app"
+      ></mat-icon>
+      Logout
+    </div>
+  </div>
+</nav>

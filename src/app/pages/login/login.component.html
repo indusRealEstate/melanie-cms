@@ -1,0 +1,40 @@
+<div
+  class="d-flex align-items-center justify-content-center w-100 h-40rem"
+  *ngIf="processing"
+>
+  <mat-spinner [diameter]="50"></mat-spinner>
+</div>
+
+<div class="container" *ngIf="!processing">
+  <div class="wrapper">
+    <div class="title"><span>Login To CMS</span></div>
+    <form action="#">
+      <p class="text-center mb-3 text-danger" *ngIf="wrong_credential">
+        Wrong credentials. Try again!
+      </p>
+      <div class="row">
+        <i class="fas fa-user"></i>
+        <input
+          type="text"
+          placeholder="Username"
+          required
+          [(ngModel)]="username"
+        />
+      </div>
+      <div class="row">
+        <i class="fas fa-lock"></i>
+        <input
+          type="password"
+          placeholder="Password"
+          required
+          [(ngModel)]="password"
+        />
+      </div>
+      <!-- <div class="pass"><a href="#">Forgot password?</a></div> -->
+      <div class="row button mt-5">
+        <input type="submit" value="Login" (click)="login()" />
+      </div>
+      <!-- <div class="signup-link">Not a member? <a href="#">Signup now</a></div> -->
+    </form>
+  </div>
+</div>

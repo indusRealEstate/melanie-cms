@@ -1,0 +1,185 @@
+<div class="main-content">
+  <!-- Progress Bar -->
+  <div class="progress-bar-wrapper" *ngIf="uploading">
+    <p class="mb-2 text-light">Uploading Image... {{ uploading_progress }}%</p>
+    <div class="progress-bar">
+      <div
+        class="progress-bar-fill"
+        [ngStyle]="{ 'width.%': uploading_progress % 100 }"
+      ></div>
+    </div>
+  </div>
+  <!-- Progress Bar -->
+  <div class="container-fluid">
+    <div
+      *ngIf="isLoading || saving"
+      class="d-flex align-items-center justify-content-center w-100 h-30rem"
+    >
+      <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+    <div class="col w-100" *ngIf="!isLoading && !saving">
+      <div class="row m-0 justify-content-between align-items-center p20">
+        <h3>Edit Team Member</h3>
+
+        <div class="row m-0">
+          <div class="col">
+            <div class="btn save-btn" (click)="save()">Save</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row m-0 w-100 mt-4">
+        <div class="col pl-0">
+          <div class="row m-0 align-items-center">
+            <img
+              class="avatar"
+              src="{{ profile_img }}"
+              alt=""
+              onerror="this.src='assets/img/svg/team.svg';"
+            />
+
+            <label class="m-0 ml-4" for="file">Choose File</label>
+            <input
+              class="ml-2"
+              type="file"
+              accept="image/*"
+              id="file"
+              (change)="handleFileInput($event.target.files)"
+            />
+          </div>
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              placeholder="Enter email"
+              [(ngModel)]="member_email"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Alternative Phone No. (optional)</mat-label>
+            <input
+              matInput
+              placeholder="Enter alternative phone no."
+              [(ngModel)]="member_phone_alt"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Nationality</mat-label>
+            <mat-select [(ngModel)]="member_nationality">
+              <mat-option *ngFor="let c of countries" [value]="c.name">
+                {{ c.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>BRN No. (optional)</mat-label>
+            <input
+              matInput
+              placeholder="Enter BRN no."
+              [(ngModel)]="member_brn_no"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Cover area</mat-label>
+            <input
+              matInput
+              placeholder="e.g. Business bay, Dubai Marina"
+              [(ngModel)]="member_cover_area"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col pr-0">
+          <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input
+              matInput
+              placeholder="Enter name"
+              [(ngModel)]="member_name"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Phone No.</mat-label>
+            <input
+              matInput
+              placeholder="Enter phone no."
+              [(ngModel)]="member_phone"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Designation</mat-label>
+            <input
+              matInput
+              placeholder="Enter designation"
+              [(ngModel)]="member_designation"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Role</mat-label>
+            <mat-select [(ngModel)]="member_role">
+              <mat-option value="User">User</mat-option>
+              <mat-option value="Master">Master</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Languages</mat-label>
+            <mat-select>
+              <mat-select-trigger>
+                {{ displaySelectedLanguages() }}
+              </mat-select-trigger>
+              <mat-option
+                *ngFor="let l of langulages"
+                [value]="l"
+                (click)="languageSelect(l)"
+              >
+                <span
+                  class="d-flex align-items-center justify-content-between"
+                  style="width: 120px"
+                  >{{ l
+                  }}<mat-icon
+                    *ngIf="selected_langulages.includes(l)"
+                    style="font-size: 21px; color: green"
+                    aria-hidden="false"
+                    aria-label="Check"
+                    fontIcon="check"
+                  ></mat-icon
+                ></span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Experience Since</mat-label>
+            <input
+              matInput
+              [matDatepicker]="expPicker"
+              [(ngModel)]="member_exp_since"
+            />
+            <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="expPicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #expPicker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>LinkedIn Link</mat-label>
+            <input
+              matInput
+              placeholder="Enter LinkedIn link"
+              [(ngModel)]="member_linkedin_link"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Biography</mat-label>
+        <textarea
+          matInput
+          placeholder="Enter biography"
+          rows="6"
+          [(ngModel)]="member_bio"
+        ></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+</div>

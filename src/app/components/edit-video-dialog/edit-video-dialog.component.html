@@ -1,0 +1,59 @@
+<div
+  class="card"
+  style="margin: 0"
+  cdkDrag
+  cdkDragRootElement=".cdk-overlay-pane"
+  class="category-dialog"
+>
+  <!-- <div class="card-header"></div> -->
+  <div class="card-header position-relative">
+    <!-- <button (click)="onCloseDialog()" class="close-btn" title="close btn">X</button> -->
+    <div class="row m-0 justify-content-between align-items-center">
+      <h4 class="text-center">Edit Video</h4>
+      <img
+        matTooltip="Close"
+        matTooltipClass="tooltip"
+        matTooltipPosition="above"
+        (click)="onCloseDialog()"
+        class="close-icon"
+        src="assets/img/svg/close-circle.svg"
+        alt
+      />
+    </div>
+  </div>
+
+  <div class="card-body position-relative" style="padding: 1.5rem 1.5rem">
+    <mat-form-field appearance="outline">
+      <mat-label>Video Title</mat-label>
+      <input
+        matInput
+        placeholder="Enter a title for this video."
+        [(ngModel)]="title"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Link</mat-label>
+      <input
+        matInput
+        placeholder="Enter a link for this video."
+        [(ngModel)]="link"
+      />
+    </mat-form-field>
+    <span class="mb-2"><i>Image Dimensions ( w-800 x h-679 ), Max 2MB</i></span>
+    <img class="w-100 maxh20rem contain" src="{{ image }}" alt="" />
+
+    <div class="row m-0 align-items-center mt-4">
+      <label class="m-0" for="file">Choose File</label>
+      <input
+        class="ml-2"
+        type="file"
+        accept="image/*"
+        id="file"
+        (change)="handleFileInput($event.target.files)"
+      />
+    </div>
+    <div class="row m-0 align-items-center justify-content-end">
+      <div class="btn save-btn" (click)="submit()">Submit</div>
+    </div>
+  </div>
+</div>

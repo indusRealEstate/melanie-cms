@@ -1,0 +1,32 @@
+<div
+  class="card"
+  style="margin: 0"
+  cdkDrag
+  cdkDragRootElement=".cdk-overlay-pane"
+  class="category-dialog"
+>
+  <!-- <div class="card-header"></div> -->
+  <div class="card-header position-relative">
+    <!-- <button (click)="onCloseDialog()" class="close-btn" title="close btn">X</button> -->
+    <div class="row m-0 justify-content-between align-items-center">
+      <div class="row m-0">Image View</div>
+      <img
+        (click)="onCloseDialog()"
+        class="close-icon"
+        src="assets/img/svg/close-circle.svg"
+        alt
+      />
+    </div>
+  </div>
+
+  <div class="card-body position-relative" style="padding: 1.5rem 1.5rem">
+    <img
+      class="img"
+      src="{{ img }}"
+      alt="img"
+      width="80"
+      height="80"
+      onerror="this.src='assets/img/svg/team.svg';"
+    />
+  </div>
+</div>

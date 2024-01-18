@@ -1,0 +1,55 @@
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.h-20rem {
+  height: 20rem !important;
+}
+
+.mat-row {
+  transition: all 200ms ease-in-out;
+  cursor: pointer;
+  &:hover {
+    background-color: #ffe4c4;
+  }
+}
+
+.bg-light-subtle {
+  background-color: grey;
+}
+
+.more_actions_btn {
+  width: 40px;
+  text-align: center;
+  transition: all ease-in-out 200ms;
+  border: 1px solid transparent;
+  &:hover {
+    border: 1px solid #ffbbb6;
+    border-radius: 3px;
+    background: #ffe6e4;
+  }
+}
+
+.sub-menu-icon-edit {
+  font-size: 20px;
+}
+.sub-menu-icon-delete {
+  font-size: 20px;
+  color: red;
+}
+
+.member-avatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.maxw-7rem{
+  max-width: 7rem !important;
+}

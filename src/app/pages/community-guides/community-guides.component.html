@@ -1,0 +1,183 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header bg-light-subtle row m-0">
+            <div class="col d-flex align-items-center">
+              <h4 class="card-title text-light">All Community Guides</h4>
+            </div>
+            <div class="col d-flex justify-content-end">
+              <div class="btn btn-primary" (click)="navigateToAddNewDevPage()">
+                Add New Guide
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div
+              *ngIf="isLoading"
+              class="d-flex align-items-center justify-content-center w-100 h-20rem"
+            >
+              <mat-spinner [diameter]="50"></mat-spinner>
+            </div>
+
+            <table
+              *ngIf="!isLoading"
+              mat-table
+              [dataSource]="guides"
+              matSort
+              (matSortChange)="announceSortChange($event)"
+              class="mat-elevation-z8"
+            >
+              <!-- Position Column -->
+              <ng-container matColumnDef="id">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header
+                  sortActionDescription="Sort by ID"
+                >
+                  ID
+                </th>
+                <td mat-cell *matCellDef="let item">
+                  <div
+                    *ngIf="!pageChangeLoading"
+                    class="d-flex align-items-center justify-content-between maxw-9rem my-2"
+                  >
+                    <span (click)="navigateToEditDevPage(item)">{{
+                      item.ps_guide_id
+                    }}</span>
+                    <img
+                      (click)="enlargeImage(item.location_image)"
+                      class="member-avatar"
+                      src="{{
+                        'https://indusre.com/communityimg/' +
+                          item.location_image
+                      }}"
+                      alt="img"
+                      width="100"
+                      height="100"
+                      onerror="this.src='assets/img/svg/team.svg';"
+                    />
+                  </div>
+
+                  <ngx-skeleton-loader
+                    [theme]="{
+                      width: '60px',
+                      height: '30px',
+                      'margin-top': '5px',
+                      'margin-bottom': '0px'
+                    }"
+                    *ngIf="pageChangeLoading"
+                  ></ngx-skeleton-loader>
+                </td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="l_name">
+                <th mat-header-cell *matHeaderCellDef>Location Name</th>
+                <td
+                  mat-cell
+                  *matCellDef="let item"
+                  (click)="navigateToEditDevPage(item)"
+                >
+                  <span *ngIf="!pageChangeLoading"
+                    ><b>{{ item.location_name }}</b></span
+                  >
+                  <ngx-skeleton-loader
+                    [theme]="{
+                      width: '200px',
+                      height: '30px',
+                      'margin-top': '5px',
+                      'margin-bottom': '0px'
+                    }"
+                    *ngIf="pageChangeLoading"
+                  ></ngx-skeleton-loader>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="short_desc">
+                <th mat-header-cell *matHeaderCellDef>Short Description</th>
+                <td
+                  mat-cell
+                  *matCellDef="let item"
+                  (click)="navigateToEditDevPage(item)"
+                  style="max-width: 13rem !important"
+                >
+                  <span *ngIf="!pageChangeLoading"
+                    ><b>{{
+                      item.location_blurb != "" ? item.location_blurb : "N/A"
+                    }}</b></span
+                  >
+                  <ngx-skeleton-loader
+                    [theme]="{
+                      width: '300px',
+                      height: '30px',
+                      'margin-top': '5px',
+                      'margin-bottom': '0px'
+                    }"
+                    *ngIf="pageChangeLoading"
+                  ></ngx-skeleton-loader>
+                </td>
+              </ng-container>
+
+              <!-- Weight Column -->
+
+              <ng-container matColumnDef="action">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header
+                  sortActionDescription="Sort by date"
+                >
+                  Action
+                </th>
+                <td mat-cell *matCellDef="let item">
+                  <mat-icon
+                    mat-button
+                    [matMenuTriggerFor]="menu"
+                    class="more_actions_btn"
+                    aria-hidden="false"
+                    aria-label="More Actions"
+                    fontIcon="more_horiz"
+                  ></mat-icon>
+
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="navigateToEditDevPage(item)">
+                      <mat-icon
+                        class="sub-menu-icon-edit"
+                        aria-hidden="false"
+                        aria-label="Edit"
+                        fontIcon="edit"
+                      ></mat-icon
+                      >Edit
+                    </button>
+                    <button mat-menu-item (click)="delete(item)">
+                      <mat-icon
+                        class="sub-menu-icon-delete"
+                        aria-hidden="false"
+                        aria-label="Edit"
+                        fontIcon="delete"
+                      ></mat-icon
+                      >Delete
+                    </button>
+                  </mat-menu>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+
+            <mat-paginator
+              #paginator
+              [pageSizeOptions]="[10, 14, 20]"
+              [length]="guidesCount"
+              showFirstLastButtons
+              (page)="pageChange($event)"
+            ></mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

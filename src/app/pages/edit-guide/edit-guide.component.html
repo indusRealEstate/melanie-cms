@@ -1,0 +1,177 @@
+<div class="main-content">
+  <!-- Progress Bar -->
+  <div class="progress-bar-wrapper" *ngIf="uploading">
+    <p class="mb-2 text-light">Uploading Image... {{ uploading_progress }}%</p>
+    <div class="progress-bar">
+      <div
+        class="progress-bar-fill"
+        [ngStyle]="{ 'width.%': uploading_progress % 100 }"
+      ></div>
+    </div>
+  </div>
+  <!-- Progress Bar -->
+  <div class="container-fluid">
+    <div
+      *ngIf="isLoading || saving"
+      class="d-flex align-items-center justify-content-center w-100 h-30rem"
+    >
+      <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+    <div class="col w-100" *ngIf="!isLoading && !saving">
+      <div class="row m-0 justify-content-between align-items-center p20">
+        <h3>Edit Guide</h3>
+
+        <div class="row m-0">
+          <div class="col">
+            <div class="btn save-btn" (click)="save()">Save</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row m-0 w-100 mt-4">
+        <div class="col pl-0">
+          <mat-form-field appearance="outline">
+            <mat-label>Select Location</mat-label>
+            <mat-select [(ngModel)]="selected_location">
+              <mat-option *ngFor="let l of locations" [value]="l.value">
+                {{ l.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Short Description</mat-label>
+            <textarea
+              matInput
+              placeholder="Enter short description"
+              rows="3"
+              [(ngModel)]="short_desc"
+            ></textarea>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>External Url (Location Describing Articles) (Optional)</mat-label>
+            <input matInput placeholder="Enter url" [(ngModel)]="ext_url" />
+          </mat-form-field>
+        </div>
+        <div class="col pr-0">
+          <div class="row m-0 justify-content-between align-items-center">
+            <h4 class="mt-0">Main Image</h4>
+            <img
+              matTooltip="Edit Image"
+              class="edit-btn"
+              src="assets/img/svg/edit.svg"
+              alt=""
+              (click)="editImg(main_img, 'main')"
+            />
+          </div>
+          <img class="w-100 maxh20rem contain" src="{{ main_img }}" alt="" />
+        </div>
+      </div>
+
+      <h4 class="mt-0">Description</h4>
+      <editor
+        apiKey="uriyx9p2q6b73b9ngch8oowagdehtak3ytc2v1r9x99qv2rw"
+        [init]="tinyMceConfig"
+        [(ngModel)]="long_desc"
+      ></editor>
+
+      <div class="row m-0 justify-content-between mt-4 align-items-center mb-3">
+        <h4 class="">Gallary</h4>
+        <div class="btn btn-warning" (click)="removeAllGallaryimgs()">
+          Remove all
+        </div>
+      </div>
+      <div
+        class="gallary-uploads"
+        style="overflow: auto"
+        [ngClass]="
+          gallary_imgs.length > 0
+            ? ''
+            : 'd-flex justify-content-center align-items-center'
+        "
+      >
+        <div class="img-wrapper row m-0" *ngIf="gallary_imgs.length > 0">
+          <div
+            *ngFor="let img of gallary_imgs; let index = index"
+            style="max-width: 160px; max-height: 100px"
+            class="d-flex"
+          >
+            <img src="{{ img }}" alt="" />
+            <mat-icon class="remove-icon" (click)="removeGallaryImg(index)"
+              >cancel</mat-icon
+            >
+          </div>
+          <div style="padding: 10px">
+            <div
+              style="
+                border: 1px solid rgb(255 201 129);
+                border-radius: 3px;
+                height: 100%;
+                width: 100%;
+              "
+            >
+              <div
+                class="btn upload-btn"
+                (click)="input.click()"
+                style="padding: 5px 10px; margin: 20px 15px"
+              >
+                Add More
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <input
+          #input
+          class="d-none"
+          multiple
+          type="file"
+          accept="image/*"
+          id="file"
+          (change)="handleFileInputGallary($event.target.files)"
+        />
+        <div class="d-block" *ngIf="gallary_imgs.length == 0">
+          <p class="mb-2" style="color: #cb7d16">Add Galary Images.</p>
+          <div class="row m-0 justify-content-center w-100">
+            <div class="btn upload-btn" (click)="input.click()">Upload</div>
+          </div>
+        </div>
+      </div>
+      <div class="row m-0 justify-content-between mt-4 align-items-center mb-3">
+        <h4 class="">Highlights</h4>
+        <div class="btn btn-primary" (click)="addHighlight()">
+          Add Highlight
+        </div>
+      </div>
+      <div
+        *ngIf="highlights.length == 0"
+        style="
+          height: 10rem;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <p>Please add atleast one highlight!</p>
+      </div>
+      <div *ngIf="highlights.length > 0">
+        <div *ngFor="let h of highlights; let index = index">
+          <div class="row m-0 mb-3">
+            <div class="col-3">
+              <img src="{{ h.img }}" alt="" height="150" width="250" />
+            </div>
+            <div class="col-8">
+              <p><b>Title :</b> {{ h.title }}</p>
+              <p><b>Subtitle :</b> {{ h.subtitle }}</p>
+            </div>
+            <div class="col-1">
+              <mat-icon style="cursor: pointer" (click)="removeHighLight(index)"
+                >cancel</mat-icon
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

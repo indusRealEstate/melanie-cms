@@ -1,0 +1,403 @@
+<div class="main-content">
+  <div class="progress-bar-wrapper" *ngIf="uploading">
+    <p class="mb-2 text-light">Uploading Image... {{ uploading_progress }}%</p>
+    <div class="progress-bar">
+      <div
+        class="progress-bar-fill"
+        [ngStyle]="{ 'width.%': uploading_progress % 100 }"
+      ></div>
+    </div>
+  </div>
+  <div class="progress-bar-wrapper" *ngIf="image_processing">
+    <p class="mb-2 text-light">Image Processing...</p>
+  </div>
+  <div class="progress-bar-wrapper-download" *ngIf="downloading">
+    <p class="mb-2 text-light">Downloading...</p>
+  </div>
+  <div class="progress-bar-wrapper-upscale" *ngIf="upscaling">
+    <p class="mb-2 text-light">Tensorflow Upscaling...</p>
+  </div>
+  <ngx-dropzone
+    (change)="onDropFile($event)"
+    class="dropzone"
+    disableClick
+    accept="image/*"
+  >
+    <div class="container-fluid">
+      <div class="custom-loader" *ngIf="!cropper_ready && imgSelected">
+        <mat-spinner [diameter]="50"></mat-spinner>
+      </div>
+      <div class="card">
+        <div class="card-header">Select Image</div>
+        <div class="card-body" style="padding: 30px 40px">
+          <ul style="padding-left: 20px">
+            <li>Browse and select the image you want to crop or resize.</li>
+            <li>Drag-and-drop the image file.</li>
+            <li>Paste the image from the clipboard (Ctrl-V or ⌘V).</li>
+          </ul>
+          <input
+            #input
+            class="d-none"
+            multiple
+            type="file"
+            accept="image/*"
+            id="file"
+            (change)="fileChangeEvent($event)"
+          />
+          <div class="btn browse-btn" (click)="input.click()">
+            <mat-icon>cloud_upload</mat-icon>Browse...
+          </div>
+          <div class="btn browse-btn ml-3" (click)="clear()">
+            <mat-icon>delete_sweep</mat-icon>Clear
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Crop Image (optional)</div>
+        <div class="card-body" style="padding: 30px 40px">
+          <ul style="padding-left: 20px">
+            <li *ngIf="!imgSelected">Select Image First.</li>
+            <li *ngIf="imgSelected">Crop selected Image.</li>
+          </ul>
+
+          <image-cropper
+            [imageFile]="selected_img_file"
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="maintainAspectRatio"
+            [aspectRatio]="aspectRatio"
+            [cropperMinWidth]="128"
+            [onlyScaleDown]="true"
+            [roundCropper]="false"
+            [canvasRotation]="canvasRotation"
+            [transform]="transform"
+            [alignImage]="'left'"
+            [style.display]="showCropper ? null : 'none'"
+            format="jpeg"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded($event)"
+            (cropperReady)="cropperReady($event)"
+            (loadImageFailed)="loadImageFailed()"
+            [cropper]="cropper"
+            class="mb-4"
+            style="max-height: 70rem"
+          ></image-cropper>
+
+          <div class="row m-0">
+            <div class="col-3">
+              <h3 class="crop-settings-title">Aspect Ratio</h3>
+              <mat-form-field appearance="outline">
+                <mat-label>Aspect Ratio</mat-label>
+                <mat-select
+                  (selectionChange)="aspectRatioChange($event)"
+                  [(ngModel)]="aspectRatio"
+                >
+                  <mat-option
+                    *ngFor="let asp of aspectRatios"
+                    [value]="asp.value"
+                  >
+                    {{ asp.viewValue }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-5">
+              <h3 class="crop-settings-title">Rotate or Flip</h3>
+              <div class="row m-0 align-items-center">
+                <div
+                  style="margin-top: -13px"
+                  class="btn crop-sett-btns"
+                  (click)="rotateLeft()"
+                  matTooltip="Rotate Left"
+                  matTooltipClass="tooltip"
+                  matTooltipPosition="above"
+                >
+                  <mat-icon>rotate_left</mat-icon>
+                </div>
+                <div
+                  style="margin-top: -13px"
+                  class="btn crop-sett-btns"
+                  (click)="rotateRight()"
+                  matTooltip="Rotate Right"
+                  matTooltipClass="tooltip"
+                  matTooltipPosition="above"
+                >
+                  <mat-icon>rotate_right</mat-icon>
+                </div>
+                <div
+                  style="margin-top: -13px"
+                  class="btn crop-sett-btns"
+                  (click)="flipHorizontal()"
+                  matTooltip="Flip Horizontal"
+                  matTooltipClass="tooltip"
+                  matTooltipPosition="above"
+                >
+                  <mat-icon>flip</mat-icon>
+                </div>
+                <div
+                  style="margin-top: -13px"
+                  class="btn crop-sett-btns"
+                  (click)="flipVertical()"
+                  matTooltip="Flip Vertical"
+                  matTooltipClass="tooltip"
+                  matTooltipPosition="above"
+                >
+                  <mat-icon style="transform: rotate(90deg)">flip</mat-icon>
+                </div>
+                <mat-form-field appearance="outline" style="width: 65px">
+                  <mat-label>Rotate</mat-label>
+                  <input
+                    matInput
+                    [(ngModel)]="rotation"
+                    type="number"
+                    (click)="updateRotation()"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-2">
+              <h3 class="crop-settings-title">Zoom</h3>
+              <div class="row m-0 align-items-center">
+                <div
+                  style="margin-top: 4px"
+                  class="btn crop-sett-btns"
+                  (click)="zoomIn()"
+                  matTooltip="Zoom In"
+                  matTooltipClass="tooltip"
+                  matTooltipPosition="above"
+                >
+                  <mat-icon>zoom_in</mat-icon>
+                </div>
+                <div
+                  style="margin-top: 4px"
+                  class="btn crop-sett-btns"
+                  (click)="zoomOut()"
+                  matTooltip="Zoom Out"
+                  matTooltipClass="tooltip"
+                  matTooltipPosition="above"
+                >
+                  <mat-icon>zoom_out</mat-icon>
+                </div>
+              </div>
+            </div>
+            <div class="col-2">
+              <h3 class="crop-settings-title">Reset</h3>
+              <div class="row m-0 align-items-center">
+                <div
+                  style="margin-top: 4px"
+                  class="btn crop-sett-reset-btn"
+                  (click)="resetImage()"
+                >
+                  <mat-icon>settings_backup_restore</mat-icon>Reset
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row m-0 mt-3">
+            <div class="col-6">
+              <h3 class="crop-settings-title">Crop by Coordinates</h3>
+              <mat-form-field appearance="outline">
+                <mat-label>Left</mat-label>
+                <input
+                  matInput
+                  [(ngModel)]="cropper.x1"
+                  type="number"
+                  (click)="cropByCordinates()"
+                />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Top</mat-label>
+                <input
+                  matInput
+                  [(ngModel)]="cropper.y1"
+                  type="number"
+                  (click)="cropByCordinates()"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-6" style="padding-top: 30px">
+              <mat-form-field appearance="outline">
+                <mat-label>Right</mat-label>
+                <input
+                  matInput
+                  [(ngModel)]="cropper.x2"
+                  type="number"
+                  (click)="cropByCordinates()"
+                />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Bottom</mat-label>
+                <input
+                  matInput
+                  [(ngModel)]="cropper.y2"
+                  type="number"
+                  (click)="cropByCordinates()"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- <div class="btn browse-btn mt-3"><mat-icon>save</mat-icon>Save</div> -->
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Resize Image</div>
+        <div class="card-body" style="padding: 30px 40px">
+          <div class="row m-0">
+            <div class="col-6">
+              <h3 class="crop-settings-title">Resize Dimensions</h3>
+              <mat-form-field appearance="outline" id="matForm">
+                <mat-label>Width</mat-label>
+                <input
+                  matInput
+                  [(ngModel)]="resize_width"
+                  type="number"
+                  (click)="clickResizeDimention('w')"
+                />
+              </mat-form-field>
+              <div
+                *ngIf="tensorflow_upscale"
+                style="
+                  position: absolute;
+                  z-index: 99999;
+                  height: 11rem;
+                  width: 95%;
+                  background: #ffffff80;
+                  top: 30px;
+                "
+              ></div>
+              <mat-form-field appearance="outline">
+                <mat-label>Height</mat-label>
+                <input
+                  matInput
+                  [(ngModel)]="resize_height"
+                  type="number"
+                  (click)="clickResizeDimention('h')"
+                />
+              </mat-form-field>
+              <mat-checkbox class="example-margin" [(ngModel)]="lockAspectRatio"
+                >Lock aspect ratio</mat-checkbox
+              >
+            </div>
+            <div class="col-6">
+              <h3 class="crop-settings-title">Scale Percentage</h3>
+              <mat-form-field appearance="outline">
+                <mat-label>Scale %</mat-label>
+                <input
+                  matInput
+                  [(ngModel)]="resize_scale"
+                  type="number"
+                  (click)="resizeImage()"
+                />
+              </mat-form-field>
+              <div
+                *ngIf="tensorflow_upscale"
+                style="
+                  position: absolute;
+                  z-index: 99999;
+                  height: 4rem;
+                  width: 95%;
+                  background: #ffffff80;
+                  top: 30px;
+                "
+              ></div>
+              <!-- <mat-slide-toggle [(ngModel)]="tensorflow_upscale"
+                ><span
+                  [ngStyle]="{
+                    color: tensorflow_upscale ? '#ff9200' : 'unset'
+                  }"
+                  style="font-weight: 600; font-size: 16px"
+                  >{{
+                    tensorflow_upscale
+                      ? "Tensorflow Upscale Enabled (Beta)"
+                      : "Tensorflow Upscale Disabled"
+                  }}</span
+                ></mat-slide-toggle
+              > -->
+              <p *ngIf="tensorflow_upscale">
+                Note : This feature is not stable. You may not get expected results.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Save Image</div>
+        <div class="card-body" style="padding: 30px 40px">
+          <div class="row m-0">
+            <div class="col-6">
+              <h3 class="crop-settings-title">Export As</h3>
+              <mat-form-field appearance="outline" *ngIf="!tensorflow_upscale">
+                <mat-label>Image Formats</mat-label>
+                <mat-select [(ngModel)]="img_format">
+                  <mat-option *ngFor="let f of imgFormats" [value]="f.value">
+                    {{ f.viewValue }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline" *ngIf="tensorflow_upscale">
+                <mat-label>Image Format</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  readonly
+                  value="PNG - Portable Network Graphics"
+                />
+              </mat-form-field>
+              <div
+                *ngIf="tensorflow_upscale"
+                style="
+                  position: absolute;
+                  z-index: 99999;
+                  height: 4rem;
+                  width: 95%;
+                  background: #ffffff80;
+                  top: 30px;
+                "
+              ></div>
+              <h3 class="crop-settings-title">Quality</h3>
+              <mat-form-field appearance="outline" *ngIf="!tensorflow_upscale">
+                <mat-label>Quality</mat-label>
+                <input matInput [(ngModel)]="img_quality" type="number" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" *ngIf="tensorflow_upscale">
+                <mat-label>Quality</mat-label>
+                <input matInput type="text" readonly value="100" />
+              </mat-form-field>
+
+              <div
+                *ngIf="tensorflow_upscale"
+                style="
+                  position: absolute;
+                  z-index: 99999;
+                  height: 4rem;
+                  width: 95%;
+                  background: #ffffff80;
+                  top: 135px;
+                "
+              ></div>
+            </div>
+            <div class="col-6">
+              <h3 class="crop-settings-title">File Name</h3>
+              <mat-form-field appearance="outline">
+                <mat-label>Type file name</mat-label>
+                <input matInput [(ngModel)]="img_file_name" type="text" />
+              </mat-form-field>
+              <!-- <h3 class="crop-settings-title">File Size</h3> -->
+              <!-- <p style="font-size: 15px; font-weight: 600; color: #13cb13">
+              {{ fileSize }}
+            </p> -->
+            </div>
+          </div>
+
+          <div class="row m-0 justify-content-end">
+            <div class="btn browse-btn ml-3" (click)="download()">
+              <mat-icon>cloud_download</mat-icon>Download
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ngx-dropzone>
+</div>

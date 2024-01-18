@@ -1,0 +1,75 @@
+<div
+  class="card"
+  style="margin: 0"
+  cdkDrag
+  cdkDragRootElement=".cdk-overlay-pane"
+  class="category-dialog"
+>
+  <!-- <div class="card-header"></div> -->
+  <div class="card-header position-relative">
+    <!-- <button (click)="onCloseDialog()" class="close-btn" title="close btn">X</button> -->
+    <div class="row m-0 justify-content-between align-items-center">
+      <h4 class="text-center">Edit Achievement</h4>
+      <img
+        matTooltip="Close"
+        matTooltipClass="tooltip"
+        matTooltipPosition="above"
+        (click)="onCloseDialog()"
+        class="close-icon"
+        src="assets/img/svg/close-circle.svg"
+        alt
+      />
+    </div>
+  </div>
+
+  <div class="card-body position-relative" style="padding: 1.5rem 1.5rem">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input
+        matInput
+        placeholder="Enter a name for this achievement."
+        [(ngModel)]="name"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Awarded By</mat-label>
+      <input
+        matInput
+        placeholder="Enter a awarded by who."
+        [(ngModel)]="award_by"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [(ngModel)]="date"
+      />
+      <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <span class="mb-2"
+      ><i>Image Dimensions ( w-1280 x h-720 ), Max 2MB</i></span
+    >
+    <img class="w-100 maxh20rem contain" src="{{ image }}" alt="" />
+
+    <div class="row m-0 align-items-center mt-4">
+      <label class="m-0" for="file">Choose File</label>
+      <input
+        class="ml-2"
+        type="file"
+        accept="image/*"
+        id="file"
+        (change)="handleFileInput($event.target.files)"
+      />
+    </div>
+    <div class="row m-0 align-items-center justify-content-end">
+      <div class="btn save-btn" (click)="submit()">Submit</div>
+    </div>
+  </div>
+</div>

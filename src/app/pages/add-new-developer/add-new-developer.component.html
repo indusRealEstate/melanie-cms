@@ -1,0 +1,107 @@
+<div class="main-content">
+  <!-- Progress Bar -->
+  <div class="progress-bar-wrapper" *ngIf="uploading">
+    <p class="mb-2 text-light">Uploading Image... {{ uploading_progress }}%</p>
+    <div class="progress-bar">
+      <div
+        class="progress-bar-fill"
+        [ngStyle]="{ 'width.%': uploading_progress % 100 }"
+      ></div>
+    </div>
+  </div>
+  <!-- Progress Bar -->
+  <div class="container-fluid">
+    <div
+      *ngIf="saving"
+      class="d-flex align-items-center justify-content-center w-100 h-30rem"
+    >
+      <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+    <div class="col w-100" *ngIf="!saving">
+      <div class="row m-0 justify-content-between align-items-center p20">
+        <h3>Add New Developer</h3>
+
+        <div class="row m-0">
+          <div class="col">
+            <div class="btn save-btn" (click)="save()">Save</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row m-0 w-100 mt-4">
+        <div class="col pl-0">
+          <div class="row m-0 align-items-center">
+            <img class="avatar" src="{{ logo_img }}" alt="" />
+
+            <label class="m-0 ml-4" for="file">Choose Logo</label>
+            <input
+              class="ml-2"
+              type="file"
+              accept="image/*"
+              id="file"
+              (change)="handleFileInput($event.target.files)"
+            />
+          </div>
+        </div>
+        <div class="col pr-0">
+          <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input
+              matInput
+              placeholder="Enter name"
+              [(ngModel)]="dev_name"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Short Description</mat-label>
+            <textarea
+              matInput
+              placeholder="Enter short description"
+              rows="3"
+              [(ngModel)]="dev_short_desc"
+            ></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-label>About Developer</mat-label>
+        <textarea
+          matInput
+          placeholder="Enter about developer"
+          rows="15"
+          [(ngModel)]="dev_long_desc"
+        ></textarea>
+      </mat-form-field>
+
+      <div class="row m-0">
+        <div class="col-6 pl-0">
+          <div class="row m-0 justify-content-between align-items-center">
+            <h3 class="mt-0">Main Image</h3>
+            <img
+              matTooltip="Edit Image"
+              class="edit-btn"
+              src="assets/img/svg/edit.svg"
+              alt=""
+              (click)="editImg(main_img, 'main')"
+            />
+          </div>
+          <img class="w-100 maxh20rem contain" src="{{ main_img }}" alt="" />
+        </div>
+        <div class="col-6 pr-0">
+          <div class="row m-0 justify-content-between align-items-center">
+            <h3 class="mt-0">About Image</h3>
+            <img
+              matTooltip="Edit Image"
+              class="edit-btn"
+              src="assets/img/svg/edit.svg"
+              alt=""
+              (click)="editImg(about_img, 'about')"
+            />
+          </div>
+          <img class="w-100 maxh20rem contain" src="{{ about_img }}" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

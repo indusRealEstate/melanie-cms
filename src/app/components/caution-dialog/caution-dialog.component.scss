@@ -1,0 +1,37 @@
+.close-icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+
+  &:hover {
+    transform: scaleX(1.1) scaleY(1.1);
+    filter: invert(19%) sepia(100%) saturate(5381%) hue-rotate(342deg)
+      brightness(95%) contrast(96%);
+  }
+}
+
+::ng-deep .mat-dialog-container {
+  padding: 0 !important;
+  border-radius: 1rem;
+}
+
+.contain {
+  object-fit: contain !important;
+}
+
+.maxh20rem {
+  max-height: 20rem !important;
+}
+
+.save-btn {
+  padding: 8px 30px;
+  margin: 0;
+  background-color: #ed143d;
+}
+
+.cancel-btn {
+  padding: 8px 30px;
+  margin: 0;
+  background-color: grey;
+}

@@ -1,0 +1,71 @@
+<div class="main-content">
+  <!-- Progress Bar -->
+  <div class="progress-bar-wrapper" *ngIf="uploading">
+    <p class="mb-2 text-light">Uploading Image... {{ uploading_progress }}%</p>
+    <div class="progress-bar">
+      <div
+        class="progress-bar-fill"
+        [ngStyle]="{ 'width.%': uploading_progress % 100 }"
+      ></div>
+    </div>
+  </div>
+  <!-- Progress Bar -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header bg-light-subtle row m-0">
+            <div class="col d-flex align-items-center">
+              <h4 class="card-title text-light">Popup Ad</h4>
+            </div>
+
+            <div class="col d-flex justify-content-end">
+              <div
+                class="btn"
+                [ngClass]="checkPopupChange() ? 'btn-primary' : ''"
+                (click)="submit()"
+              >
+                Change Popup Ad
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div
+              *ngIf="isLoading"
+              class="d-flex align-items-center justify-content-center w-100 h-20rem"
+            >
+              <mat-spinner [diameter]="50"></mat-spinner>
+            </div>
+
+            <div *ngIf="!isLoading">
+              <mat-form-field appearance="outline">
+                <mat-label>Title</mat-label>
+                <input
+                  matInput
+                  placeholder="Enter a title for this ad."
+                  [(ngModel)]="title"
+                />
+              </mat-form-field>
+
+              <span class="mb-2"
+                ><i>Image Dimensions ( w-800 x h-679 ), Max 2MB</i></span
+              >
+              <img class="w-100 maxh20rem contain" src="{{ image }}" alt="" />
+
+              <div class="row m-0 align-items-center mt-4">
+                <label class="m-0" for="file">Choose File</label>
+                <input
+                  class="ml-2"
+                  type="file"
+                  accept="image/*"
+                  id="file"
+                  (change)="handleFileInput($event.target.files)"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

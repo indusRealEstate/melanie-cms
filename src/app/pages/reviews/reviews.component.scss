@@ -1,0 +1,78 @@
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.h-20rem {
+  height: 20rem !important;
+}
+
+.mat-row {
+  transition: all 200ms ease-in-out;
+  cursor: pointer;
+  &:hover {
+    background-color: #ffe4c4;
+  }
+}
+
+.bg-light-subtle {
+  background-color: grey;
+}
+
+.more_actions_btn {
+  width: 40px;
+  text-align: center;
+  transition: all ease-in-out 200ms;
+  border: 1px solid transparent;
+  &:hover {
+    border: 1px solid #ffbbb6;
+    border-radius: 3px;
+    background: #ffe6e4;
+  }
+}
+
+.sub-menu-icon-edit {
+  font-size: 20px;
+}
+.sub-menu-icon-delete {
+  font-size: 20px;
+  color: red;
+}
+
+.member-avatar {
+  border-radius: 3%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.maxw-8rem {
+  max-width: 8rem !important;
+}
+
+.progress-bar-wrapper {
+  position: fixed;
+  z-index: 9999;
+  top: 10px;
+  right: 15px;
+  width: 440px;
+  height: 6rem;
+  background: #999999;
+  border-radius: 5px;
+  padding: 20px;
+
+  .progress-bar {
+    width: 400px;
+    height: 25px;
+    background-color: rgb(218 218 218);
+    border: 1px solid #4caf50;
+    border-radius: 6px;
+
+    .progress-bar-fill {
+      background: #4caf50;
+      height: 20px;
+    }
+  }
+}

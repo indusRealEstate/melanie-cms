@@ -1,0 +1,43 @@
+<div
+  class="card"
+  style="margin: 0"
+  cdkDrag
+  cdkDragRootElement=".cdk-overlay-pane"
+  class="category-dialog"
+>
+  <!-- <div class="card-header"></div> -->
+  <div class="card-header position-relative">
+    <!-- <button (click)="onCloseDialog()" class="close-btn" title="close btn">X</button> -->
+    <div class="row m-0 justify-content-between align-items-center">
+      <div class="row m-0">
+        <mat-icon
+          style="color: orange"
+          class="sub-menu-icon-delete mr-2"
+          aria-hidden="false"
+          aria-label="Warning"
+          fontIcon="warning"
+        ></mat-icon>
+        <h4 class="text-center">Warning</h4>
+      </div>
+      <img
+        (click)="onCloseDialog()"
+        class="close-icon"
+        src="assets/img/svg/close-circle.svg"
+        alt
+      />
+    </div>
+  </div>
+
+  <div class="card-body position-relative" style="padding: 1.5rem 1.5rem">
+    <h3 class="mt-0">Are you sure?</h3>
+    <p>
+      The {{ getNameByType(type) }} "<i
+        ><b>{{ data.title }}</b></i
+      >" will be permenently deleted.
+    </p>
+    <div class="row m-0 align-items-center justify-content-end">
+      <div class="btn cancel-btn mr-4" (click)="onCloseDialog()">Cancel</div>
+      <div class="btn save-btn" (click)="submit()">Delete</div>
+    </div>
+  </div>
+</div>
