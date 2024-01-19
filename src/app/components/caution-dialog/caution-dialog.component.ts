@@ -32,26 +32,8 @@ export class CautionDialog implements OnInit {
 
   getNameByType(type) {
     switch (type) {
-      case "blog":
-        return "Blog";
-      case "news":
-        return "News";
-      case "main_slider":
-        return "Main Slider";
-      case "ad_banner":
-        return "Featured Project";
-      case "team":
-        return "Team Member";
-      case "dev":
-        return "Developer";
-      case "video":
-        return "Video";
-      case "ach":
-        return "Achievement";
-      case "guide":
-        return "Community Guide";
-      case "review":
-        return "Review";
+      case "pr":
+        return "Listing";
       default:
         return "";
     }

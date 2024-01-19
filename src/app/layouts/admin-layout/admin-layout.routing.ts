@@ -24,10 +24,11 @@ import { AddNewGuideComponent } from "app/pages/add-new-guide/add-new-guide.comp
 import { EditGuideComponent } from "app/pages/edit-guide/edit-guide.component";
 import { OptimizeImgComponent } from "app/pages/optimize-img/optimize-img.component";
 import { ReviewsComponent } from "app/pages/reviews/reviews.component";
+import { PropertyListingComponent } from "app/pages/property-listing/property-listing.component";
+import { AddNewListingComponent } from "app/pages/add-new-listing/add-new-listing.component";
+import { EditListingComponent } from "app/pages/edit-listing/edit-listing.component";
 
 export const AdminLayoutRoutes: Routes = [
-  { path: "login", component: LoginComponent },
-  { path: "dashboard", component: DashboardComponent },
   { path: "blogs", component: BlogsComponent },
   { path: "blog-view", component: BlogViewComponent },
   { path: "add-new-blog", component: AddNewBlogComponent },
@@ -50,4 +51,12 @@ export const AdminLayoutRoutes: Routes = [
   { path: "edit-guide", component: EditGuideComponent },
   { path: "optimize-img", component: OptimizeImgComponent },
   { path: "reviews", component: ReviewsComponent },
+  /////////////////////////////////////////////////////////
+  ////////////////////// new routes ///////////////////////
+  /////////////////////////////////////////////////////////
+  { path: "login", component: LoginComponent },
+  { path: "dashboard", component: DashboardComponent },
+  { path: "property-listings", component: PropertyListingComponent },
+  { path: "add-new-listing", component: AddNewListingComponent },
+  { path: "edit-listing", component: EditListingComponent },
 ];

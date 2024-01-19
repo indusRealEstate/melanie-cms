@@ -50,6 +50,10 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 import { NgxDropzoneModule } from "ngx-dropzone";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { ReviewsComponent } from "app/pages/reviews/reviews.component";
+import { PropertyListingComponent } from "app/pages/property-listing/property-listing.component";
+import { AddNewListingComponent } from "app/pages/add-new-listing/add-new-listing.component";
+import { MatRadioModule } from "@angular/material/radio";
+import { EditListingComponent } from "app/pages/edit-listing/edit-listing.component";
 
 @NgModule({
   imports: [
@@ -80,10 +84,9 @@ import { ReviewsComponent } from "app/pages/reviews/reviews.component";
     MatCheckboxModule,
     NgxDropzoneModule,
     MatSlideToggleModule,
+    MatRadioModule,
   ],
   declarations: [
-    LoginComponent,
-    DashboardComponent,
     BlogsComponent,
     BlogViewComponent,
     NewsComponent,
@@ -106,6 +109,14 @@ import { ReviewsComponent } from "app/pages/reviews/reviews.component";
     EditGuideComponent,
     OptimizeImgComponent,
     ReviewsComponent,
+    //////////////////////////////
+    //// new modules /////////////
+    //////////////////////////////
+    LoginComponent,
+    DashboardComponent,
+    PropertyListingComponent,
+    AddNewListingComponent,
+    EditListingComponent,
   ],
 })
 export class AdminLayoutModule {}
