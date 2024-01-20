@@ -42,6 +42,7 @@ export class PropertyListingComponent implements OnInit {
 
   uploading_progress: any = 0;
   uploading: boolean = false;
+  search_text: string = "";
 
   constructor(
     private _liveAnnouncer: LiveAnnouncer,
@@ -118,6 +119,26 @@ export class PropertyListingComponent implements OnInit {
       .add(() => {
         this.isLoading = false;
       });
+  }
+
+  searchListings() {
+    if (this.search_text != "") {
+      this.pageChangeLoading = true;
+      this.listingService
+        .getAllListings(this.paginator.pageSize, 1, this.search_text)
+        .subscribe((res) => {
+          this.allListings = new MatTableDataSource(res.list);
+          this.allListingsCount = res.count;
+          setTimeout(() => {
+            if (this.allListings != undefined) {
+              this.allListings.sort = this.sort;
+            }
+          });
+        })
+        .add(() => {
+          this.pageChangeLoading = false;
+        });
+    }
   }
 
   openSnackBar(message: string) {

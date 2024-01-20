@@ -25,6 +25,12 @@ import { ImgViewDialog } from "./img-view-dialog/img-view-dialog.component";
 import { AddNewGuideHighlightDialog } from "./add-new-guide-highlight-dialog/add-new-guide-highlight-dialog.component";
 import { AddNewReviewDialog } from "./add-new-review-dialog/add-new-review-dialog.component";
 import { EditReviewDialog } from "./edit-review-dialog/edit-review-dialog.component";
+import { AddLandingPageSliderDialog } from "./add-landing-page-slider/add-landing-page-slider.component";
+import { MatTableModule } from "@angular/material/table";
+import { MatSortModule } from "@angular/material/sort";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { NgxSkeletonLoaderModule } from "ngx-skeleton-loader";
 
 @NgModule({
   imports: [
@@ -37,13 +43,13 @@ import { EditReviewDialog } from "./edit-review-dialog/edit-review-dialog.compon
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    NgxSkeletonLoaderModule,
   ],
   declarations: [
-    FooterComponent,
-    NavbarComponent,
-    SidebarComponent,
-    CautionDialog,
-    AddImgDialog,
     AddNewSliderImgDialog,
     EditSliderImgDialog,
     AddNewAdBannerDialog,
@@ -52,17 +58,19 @@ import { EditReviewDialog } from "./edit-review-dialog/edit-review-dialog.compon
     EditVideoDialog,
     AddNewAchievementDialog,
     EditAchievementDialog,
-    ImgViewDialog,
     AddNewGuideHighlightDialog,
     AddNewReviewDialog,
     EditReviewDialog,
+    ///////////////////////////////
+    FooterComponent,
+    NavbarComponent,
+    SidebarComponent,
+    CautionDialog,
+    AddImgDialog,
+    ImgViewDialog,
+    AddLandingPageSliderDialog,
   ],
   exports: [
-    FooterComponent,
-    NavbarComponent,
-    SidebarComponent,
-    CautionDialog,
-    AddImgDialog,
     AddNewSliderImgDialog,
     EditSliderImgDialog,
     AddNewAdBannerDialog,
@@ -71,10 +79,17 @@ import { EditReviewDialog } from "./edit-review-dialog/edit-review-dialog.compon
     EditVideoDialog,
     AddNewAchievementDialog,
     EditAchievementDialog,
-    ImgViewDialog,
     AddNewGuideHighlightDialog,
     AddNewReviewDialog,
     EditReviewDialog,
+    /////////////////////////////
+    FooterComponent,
+    NavbarComponent,
+    SidebarComponent,
+    CautionDialog,
+    AddImgDialog,
+    ImgViewDialog,
+    AddLandingPageSliderDialog,
   ],
 })
 export class ComponentsModule {}

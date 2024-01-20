@@ -17,7 +17,22 @@
             <div class="col d-flex align-items-center">
               <h4 class="card-title text-light">All Listings</h4>
             </div>
-            <div class="col d-flex justify-content-end">
+            <div class="col d-flex justify-content-end align-items-center">
+              <mat-icon
+                style="
+                  margin-right: -32px;
+                  z-index: 999;
+                  font-size: 19px;
+                  margin-top: 5px;
+                "
+                >search</mat-icon
+              >
+              <input
+                class="mr-2 search-input"
+                placeholder="Search Listings"
+                [(ngModel)]="search_text"
+                (keyup)="searchListings()"
+              />
               <div class="btn btn-primary" (click)="addNewListing()">
                 Add New Listing
               </div>
@@ -156,7 +171,7 @@
                 <th mat-header-cell *matHeaderCellDef>Area</th>
                 <td mat-cell *matCellDef="let item">
                   <span *ngIf="!pageChangeLoading"
-                    ><b>{{ item.area | number}}</b></span
+                    ><b>{{ item.area | number }}</b></span
                   >
                   <ngx-skeleton-loader
                     [theme]="{

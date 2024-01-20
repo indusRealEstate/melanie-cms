@@ -54,6 +54,7 @@ import { PropertyListingComponent } from "app/pages/property-listing/property-li
 import { AddNewListingComponent } from "app/pages/add-new-listing/add-new-listing.component";
 import { MatRadioModule } from "@angular/material/radio";
 import { EditListingComponent } from "app/pages/edit-listing/edit-listing.component";
+import { LandingPageSliderComponent } from "app/pages/landing-page-slider/landing-page-slider.component";
 
 @NgModule({
   imports: [
@@ -117,6 +118,7 @@ import { EditListingComponent } from "app/pages/edit-listing/edit-listing.compon
     PropertyListingComponent,
     AddNewListingComponent,
     EditListingComponent,
+    LandingPageSliderComponent,
   ],
 })
 export class AdminLayoutModule {}

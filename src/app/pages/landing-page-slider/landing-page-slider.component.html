@@ -1,0 +1,125 @@
+<div class="main-content">
+  <!-- Progress Bar -->
+  <div class="progress-bar-wrapper" *ngIf="uploading">
+    <p class="mb-2 text-light">Uploading Image... {{ uploading_progress }}%</p>
+    <div class="progress-bar">
+      <div
+        class="progress-bar-fill"
+        [ngStyle]="{ 'width.%': uploading_progress % 100 }"
+      ></div>
+    </div>
+  </div>
+  <!-- Progress Bar -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header bg-light-subtle row m-0">
+            <div class="col d-flex align-items-center">
+              <h4 class="card-title text-light">All Sliders</h4>
+            </div>
+
+            <div class="col d-flex justify-content-end">
+              <div class="d-flex align-items-center">
+                <mat-icon
+                  (click)="revertOrder()"
+                  matTooltip="Set to default sort order"
+                  matTooltipClass="tooltip"
+                  matTooltipPosition="above"
+                  class="mr-4 text-light refresh-btn"
+                  style="font-size: 21px"
+                  aria-hidden="false"
+                  aria-label="Refresh"
+                  fontIcon="refresh"
+                ></mat-icon>
+              </div>
+              <div
+                [ngClass]="not_saved_order ? 'btn-primary' : ''"
+                class="btn mr-4"
+                (click)="updateSortOrder()"
+              >
+                <mat-icon
+                  class="mr-2"
+                  style="font-size: 21px"
+                  aria-hidden="false"
+                  aria-label="List"
+                  fontIcon="view_list"
+                ></mat-icon>
+                Save Sort Order
+              </div>
+              <div class="btn btn-primary" (click)="addNewSlider()">
+                Add New Slider
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div
+              *ngIf="isLoading"
+              class="d-flex align-items-center justify-content-center w-100 h-20rem"
+            >
+              <mat-spinner [diameter]="50"></mat-spinner>
+            </div>
+
+            <table
+              class="table table-sm table-bordered table-striped text-center"
+              *ngIf="!isLoading"
+            >
+              <thead>
+                <tr>
+                  <th scope="col">Id <i>(Sort By Dragging)</i></th>
+                  <th scope="col">Address</th>
+                  <th scope="col">Preview</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody cdkDropList (cdkDropListDropped)="drop($event)">
+                <tr cdkDrag cdkDragLockAxis="y" *ngFor="let data of dataSource">
+                  <td cdkDragHandle>
+                    <div class="row m-0 justify-content-center">
+                      <div class="mr-4">
+                        <mat-icon
+                          aria-hidden="false"
+                          aria-label="Drag"
+                          fontIcon="drag_indicator"
+                        ></mat-icon>
+                      </div>
+                      <div>{{ data.prop_id }}</div>
+                    </div>
+                  </td>
+                  <td cdkDragHandle>{{ data.address }}</td>
+                  <td>
+                    <img
+                      style="cursor: pointer"
+                      (click)="enlargeImage(data.image1)"
+                      src="{{
+                        'https://premium.indusre.com/Admin/pages/forms/uploads/property/' +
+                          data.image1
+                      }}"
+                      alt="img"
+                      width="200"
+                      height="100"
+                    />
+                  </td>
+                  <td>
+                    <div class="btn btn-danger" (click)="delete(data)">
+                      Remove
+                    </div>
+                  </td>
+
+                  <!-- Preview -->
+                  <div
+                    *cdkDragPreview
+                    matchSize="true"
+                    class="container dragdrop-placeholder"
+                  >
+                    {{ data.address }}
+                  </div>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

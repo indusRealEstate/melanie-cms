@@ -1,0 +1,212 @@
+<div
+  class="card"
+  style="margin: 0"
+  cdkDrag
+  cdkDragRootElement=".cdk-overlay-pane"
+  class="category-dialog"
+>
+  <!-- <div class="card-header"></div> -->
+  <div class="card-header position-relative">
+    <!-- <button (click)="onCloseDialog()" class="close-btn" title="close btn">X</button> -->
+    <div class="row m-0 justify-content-between align-items-center">
+      <h4 class="text-center">Add Slider</h4>
+      <img
+        matTooltip="Close"
+        matTooltipClass="tooltip"
+        matTooltipPosition="above"
+        (click)="onCloseDialog()"
+        class="close-icon"
+        src="assets/img/svg/close-circle.svg"
+        alt
+      />
+    </div>
+  </div>
+
+  <div class="card-body position-relative" style="padding: 1.5rem 1.5rem">
+    <div
+      *ngIf="isLoading"
+      class="d-flex align-items-center justify-content-center w-100"
+      style="height: 30rem"
+    >
+      <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+
+    <mat-form-field appearance="outline" *ngIf="!isLoading">
+      <mat-label>Search</mat-label>
+      <input
+        matInput
+        placeholder="Search Listings"
+        [(ngModel)]="search_text"
+        (keyup)="searchListings()"
+      />
+    </mat-form-field>
+
+    <table
+      *ngIf="!isLoading"
+      mat-table
+      [dataSource]="allListings"
+      matSort
+      (matSortChange)="announceSortChange($event)"
+      class="mat-elevation-z8"
+      style="box-shadow: none !important"
+    >
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by ID"
+        >
+          ID
+        </th>
+        <td mat-cell *matCellDef="let item">
+          <div
+            *ngIf="!pageChangeLoading"
+            class="d-flex align-items-center justify-content-between maxw-8rem my-2"
+          >
+            <span>{{ item.prop_id }}</span>
+            <img
+              (click)="enlargeImage(item.image1)"
+              class="member-avatar"
+              src="{{
+                'https://premium.indusre.com/Admin/pages/forms/uploads/property/' +
+                  item.image1
+              }}"
+              alt="img"
+              width="80"
+              height="80"
+              onerror="this.src='assets/img/svg/team.svg';"
+            />
+          </div>
+
+          <ngx-skeleton-loader
+            [theme]="{
+              width: '60px',
+              height: '30px',
+              'margin-top': '5px',
+              'margin-bottom': '0px'
+            }"
+            *ngIf="pageChangeLoading"
+          ></ngx-skeleton-loader>
+        </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef>Address</th>
+        <td mat-cell *matCellDef="let item">
+          <span *ngIf="!pageChangeLoading"
+            ><b>{{ item.address }}</b></span
+          >
+          <ngx-skeleton-loader
+            [theme]="{
+              width: '200px',
+              height: '30px',
+              'margin-top': '5px',
+              'margin-bottom': '0px'
+            }"
+            *ngIf="pageChangeLoading"
+          ></ngx-skeleton-loader>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef>Price</th>
+        <td mat-cell *matCellDef="let item">
+          <span *ngIf="!pageChangeLoading"
+            ><b>{{ item.price | currency : "AED " : true : "1.0-2" }}</b></span
+          >
+          <ngx-skeleton-loader
+            [theme]="{
+              width: '100px',
+              height: '30px',
+              'margin-top': '5px',
+              'margin-bottom': '0px'
+            }"
+            *ngIf="pageChangeLoading"
+          ></ngx-skeleton-loader>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let item">
+          <span *ngIf="!pageChangeLoading"
+            ><b>{{ item.status }}</b></span
+          >
+          <ngx-skeleton-loader
+            [theme]="{
+              width: '70px',
+              height: '30px',
+              'margin-top': '5px',
+              'margin-bottom': '0px'
+            }"
+            *ngIf="pageChangeLoading"
+          ></ngx-skeleton-loader>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef>Category</th>
+        <td mat-cell *matCellDef="let item">
+          <span *ngIf="!pageChangeLoading"
+            ><b>{{ item.cat_name }}</b></span
+          >
+          <ngx-skeleton-loader
+            [theme]="{
+              width: '70px',
+              height: '30px',
+              'margin-top': '5px',
+              'margin-bottom': '0px'
+            }"
+            *ngIf="pageChangeLoading"
+          ></ngx-skeleton-loader>
+        </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+
+      <ng-container matColumnDef="action">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by date"
+        >
+          Action
+        </th>
+        <td mat-cell *matCellDef="let item">
+          <span
+            *ngIf="checkExisting(item.prop_id)"
+            style="font-size: 15px; color: #eb9800; font-weight: 500"
+            >Already Exist</span
+          >
+          <div
+            *ngIf="!checkExisting(item.prop_id)"
+            class="btn"
+            [ngClass]="{
+              'btn-success': !checkAdded(item.prop_id),
+              'btn-danger': checkAdded(item.prop_id)
+            }"
+            (click)="addToList(item.prop_id)"
+          >
+            {{ checkAdded(item.prop_id) == true ? "Remove" : "Add" }}
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      #paginator
+      [pageSizeOptions]="[6, 10, 14, 20]"
+      [length]="allListingsCount"
+      showFirstLastButtons
+      (page)="pageChange($event)"
+    ></mat-paginator>
+
+    <div class="row m-0 justify-content-end mt-3">
+      <div class="btn btn-primary" (click)="submit()">Save</div>
+    </div>
+  </div>
+</div>

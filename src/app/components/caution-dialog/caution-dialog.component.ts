@@ -34,6 +34,8 @@ export class CautionDialog implements OnInit {
     switch (type) {
       case "pr":
         return "Listing";
+      case "main_slider":
+        return "Landing Page Slider";
       default:
         return "";
     }
