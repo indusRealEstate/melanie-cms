@@ -1,26 +1,20 @@
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
-import { HttpEvent, HttpEventType } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { AddLandingPageSliderDialog } from "app/components/add-landing-page-slider/add-landing-page-slider.component";
-import { AddNewSliderImgDialog } from "app/components/add-new-slider-img-dialog/add-new-slider-img-dialog.component";
 import { CautionDialog } from "app/components/caution-dialog/caution-dialog.component";
-import { EditSliderImgDialog } from "app/components/edit-slider-img-dialog/edit-slider-img-dialog.component";
 import { ImgViewDialog } from "app/components/img-view-dialog/img-view-dialog.component";
 import { AuthService } from "app/services/auth.service";
-import { LandingPageSliderService } from "app/services/landing-page-slider.service";
-import { MainSliderService } from "app/services/main-slider.service";
-import { last, map, tap } from "rxjs";
-import * as uuid from "uuid";
+import { ProjectsService } from "app/services/projects.service";
 
 @Component({
-  selector: "app-landing-page-slider",
-  templateUrl: "./landing-page-slider.component.html",
-  styleUrls: ["./landing-page-slider.component.scss"],
+  selector: "app-projectsr",
+  templateUrl: "./projects.component.html",
+  styleUrls: ["./projects.component.scss"],
 })
-export class LandingPageSliderComponent implements OnInit {
+export class ProjectsComponent implements OnInit {
   isLoading: boolean = true;
 
   dataSource = [];
@@ -30,7 +24,7 @@ export class LandingPageSliderComponent implements OnInit {
   uploading_progress: any = 0;
   uploading: boolean = false;
   constructor(
-    private landingSliderServices: LandingPageSliderService,
+    private projectsServices: ProjectsService,
     private dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private authService: AuthService,
@@ -42,7 +36,7 @@ export class LandingPageSliderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.landingSliderServices
+    this.projectsServices
       .getallImages()
       .subscribe((data) => {
         this.dataSource = data;
@@ -65,7 +59,7 @@ export class LandingPageSliderComponent implements OnInit {
 
   revertOrder() {
     this.isLoading = true;
-    this.landingSliderServices
+    this.projectsServices
       .getallImages()
       .subscribe((data) => {
         this.dataSource = data;
@@ -99,7 +93,7 @@ export class LandingPageSliderComponent implements OnInit {
   updateSortOrder() {
     if (this.not_saved_order == true) {
       const new_order = this.dataSource.map((item) => item.prop_id);
-      this.landingSliderServices
+      this.projectsServices
         .updateSortOrder(new_order)
         .subscribe((res) => {})
         .add(() => {
@@ -116,13 +110,13 @@ export class LandingPageSliderComponent implements OnInit {
       data: {
         id: slider.prop_id,
         title: slider.address,
-        type: "main_slider",
+        type: "prj",
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result != undefined && result.delete == true) {
-        this.landingSliderServices
+        this.projectsServices
           .removeSlider(slider.prop_id)
           .subscribe((res) => {
             // console.log(res);
@@ -139,12 +133,12 @@ export class LandingPageSliderComponent implements OnInit {
     const dialogRef = this.dialog.open(AddLandingPageSliderDialog, {
       width: "80%",
       height: "50rem",
-      data: "main",
+      data: "project",
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result != undefined) {
-        this.landingSliderServices
+        this.projectsServices
           .addToSliders(result.ids)
           .subscribe((res) => {})
           .add(() => {

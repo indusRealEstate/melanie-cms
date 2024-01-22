@@ -55,6 +55,7 @@ import { AddNewListingComponent } from "app/pages/add-new-listing/add-new-listin
 import { MatRadioModule } from "@angular/material/radio";
 import { EditListingComponent } from "app/pages/edit-listing/edit-listing.component";
 import { LandingPageSliderComponent } from "app/pages/landing-page-slider/landing-page-slider.component";
+import { ProjectsComponent } from "app/pages/projects/projects.component";
 
 @NgModule({
   imports: [
@@ -119,6 +120,7 @@ import { LandingPageSliderComponent } from "app/pages/landing-page-slider/landin
     AddNewListingComponent,
     EditListingComponent,
     LandingPageSliderComponent,
+    ProjectsComponent,
   ],
 })
 export class AdminLayoutModule {}

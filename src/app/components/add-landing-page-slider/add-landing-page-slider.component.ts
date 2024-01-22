@@ -8,6 +8,7 @@ import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { LandingPageSliderService } from "app/services/landing-page-slider.service";
+import { ProjectsService } from "app/services/projects.service";
 import { PropertyListingService } from "app/services/property-listings.service";
 
 @Component({
@@ -43,11 +44,18 @@ export class AddLandingPageSliderDialog implements OnInit {
     public dialogRef: MatDialogRef<AddLandingPageSliderDialog>,
     public listingService: PropertyListingService,
     private landingSliderServices: LandingPageSliderService,
+    private projectsServices: ProjectsService,
     private dialog?: MatDialog
   ) {
-    this.landingSliderServices.getallImages().subscribe((data: any[]) => {
-      this.existing_sliders_ids = data.map((item) => item.prop_id);
-    });
+    if (data == "main") {
+      this.landingSliderServices.getallImages().subscribe((data: any[]) => {
+        this.existing_sliders_ids = data.map((item) => item.prop_id);
+      });
+    } else {
+      this.projectsServices.getallImages().subscribe((data: any[]) => {
+        this.existing_sliders_ids = data.map((item) => item.prop_id);
+      });
+    }
   }
 
   ngOnInit() {
@@ -131,12 +139,6 @@ export class AddLandingPageSliderDialog implements OnInit {
 
   submit() {
     this.selected_ids = [...this.existing_sliders_ids, ...this.selected_ids];
-    // console.log(this.selected_ids);
-    this.landingSliderServices
-      .addToSliders(this.selected_ids)
-      .subscribe((res) => {})
-      .add(() => {
-        this.dialogRef.close("added");
-      });
+    this.dialogRef.close({ ids: this.selected_ids });
   }
 }

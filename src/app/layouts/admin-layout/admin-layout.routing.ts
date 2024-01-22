@@ -28,6 +28,7 @@ import { PropertyListingComponent } from "app/pages/property-listing/property-li
 import { AddNewListingComponent } from "app/pages/add-new-listing/add-new-listing.component";
 import { EditListingComponent } from "app/pages/edit-listing/edit-listing.component";
 import { LandingPageSliderComponent } from "app/pages/landing-page-slider/landing-page-slider.component";
+import { ProjectsComponent } from "app/pages/projects/projects.component";
 
 export const AdminLayoutRoutes: Routes = [
   { path: "blogs", component: BlogsComponent },
@@ -61,4 +62,5 @@ export const AdminLayoutRoutes: Routes = [
   { path: "add-new-listing", component: AddNewListingComponent },
   { path: "edit-listing", component: EditListingComponent },
   { path: "landing-page-slider", component: LandingPageSliderComponent },
+  { path: "projects", component: ProjectsComponent },
 ];
