@@ -75,6 +75,8 @@ export class EditListingComponent implements OnInit {
 
   prop_id: any;
 
+  price_on_app: boolean = false;
+
   constructor(
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
@@ -117,6 +119,8 @@ export class EditListingComponent implements OnInit {
           this.listed_agent = data.listed_agent;
           this.completion_date = data.completion_date;
           this.description = data.description;
+
+          this.price_on_app = data.price_on_app == "1" ? true : false;
 
           const feat = JSON.parse(data.features.features);
           Object.keys(feat).forEach((key) => {
@@ -337,9 +341,9 @@ export class EditListingComponent implements OnInit {
     if (
       this.selected_category != undefined &&
       this.selected_status != undefined &&
-      this.address != '' &&
-      this.price != '' &&
-      this.area != '' &&
+      this.address != "" &&
+      this.price != "" &&
+      this.area != "" &&
       this.features.length != 0 &&
       this.gallary_imgs.length != 0
     ) {
@@ -347,10 +351,10 @@ export class EditListingComponent implements OnInit {
       const formdata: FormData = new FormData();
       this.saving = true;
       this.uploading = true;
-     
+
       let all_gallary_imgs = [];
-      this.old_gallary_imgs.forEach(g => {
-        if(!this.gallary_imgs_deleted.includes(g)){
+      this.old_gallary_imgs.forEach((g) => {
+        if (!this.gallary_imgs_deleted.includes(g)) {
           all_gallary_imgs.push(g);
         }
       });
@@ -367,12 +371,12 @@ export class EditListingComponent implements OnInit {
       }
 
       let all_floor_imgs = [];
-      this.old_floor_imgs.forEach(f => {
-        if(!this.floor_imgs_deleted.includes(f)){
+      this.old_floor_imgs.forEach((f) => {
+        if (!this.floor_imgs_deleted.includes(f)) {
           all_floor_imgs.push(f);
         }
       });
-      
+
       let floorplan_imgs = [];
       if (this.floor_imgs.length != 0) {
         floorplan_imgs = this.floor_imgs_files.map(
@@ -407,6 +411,7 @@ export class EditListingComponent implements OnInit {
         gallary_imgs: all_gallary_imgs,
         floor_plan_imgs: all_floor_imgs,
         features: this.features,
+        price_on_app: this.price_on_app,
       };
 
       this.listingService.updateListing(this.prop_id, data).subscribe((res) => {

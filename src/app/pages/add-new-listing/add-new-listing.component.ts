@@ -22,6 +22,8 @@ export class AddNewListingComponent implements OnInit {
 
   tinyMceConfig: any;
 
+  price_on_app: boolean = false;
+
   main_img: any = "assets/img/add-image.png";
   main_img_file: File;
 
@@ -264,6 +266,7 @@ export class AddNewListingComponent implements OnInit {
         gallary_imgs: gallary_imgs,
         floor_plan_imgs: floorplan_imgs,
         features: this.features,
+        price_on_app: this.price_on_app,
       };
 
       this.listingService.addNewListing(data).subscribe((res) => {

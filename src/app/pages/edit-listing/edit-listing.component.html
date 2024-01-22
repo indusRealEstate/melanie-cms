@@ -110,6 +110,20 @@
               type="text"
             />
           </mat-form-field>
+          <div
+            *ngIf="price_on_app"
+            style="
+              position: absolute;
+              z-index: 99999;
+              height: 4rem;
+              width: 100%;
+              background: #eeeeee75;
+              top: 16rem;
+            "
+          ></div>
+          <mat-checkbox [(ngModel)]="price_on_app"
+            >Price On Application</mat-checkbox
+          >
           <mat-form-field
             appearance="outline"
             *ngIf="property_type == 'default'"
