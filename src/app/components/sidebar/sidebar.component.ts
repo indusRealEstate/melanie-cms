@@ -10,8 +10,14 @@ declare interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
   { path: "/dashboard", title: "Dashboard", icon: "dashboard", class: "" },
   { path: "/property-listings", title: "All Listings", icon: "apartment", class: "" },
-  { path: "/landing-page-slider", title: "Landing Page Slider", icon: "photo_library", class: "" },
-  { path: "/projects", title: "Projects", icon: "photo_library", class: "" },
+  { path: "/landing-page-slider", title: "Landing Page Slider", icon: "view_carousel", class: "" },
+  { path: "/rental-slider", title: "Rentals Slider", icon: "view_carousel", class: "" },
+  { path: "/display-sales", title: "Display Sales", icon: "holiday_village", class: "" },
+  { path: "/display-rentals", title: "Display Rentals", icon: "holiday_village", class: "" },
+  { path: "/projects", title: "Display Projects", icon: "holiday_village", class: "" },
+  { path: "/display-two-beds", title: "Display Two Beds", icon: "holiday_village", class: "" },
+  { path: "/display-one-beds", title: "Display One Beds", icon: "holiday_village", class: "" },
+  { path: "/display-studios", title: "Display Studios", icon: "holiday_village", class: "" },
 
   /////////////////////
   // {

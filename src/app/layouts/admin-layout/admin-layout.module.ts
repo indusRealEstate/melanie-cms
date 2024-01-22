@@ -56,6 +56,12 @@ import { MatRadioModule } from "@angular/material/radio";
 import { EditListingComponent } from "app/pages/edit-listing/edit-listing.component";
 import { LandingPageSliderComponent } from "app/pages/landing-page-slider/landing-page-slider.component";
 import { ProjectsComponent } from "app/pages/projects/projects.component";
+import { RentalSliderComponent } from "app/pages/rental-slider/rental-slider.component";
+import { DisplaySalesComponent } from "app/pages/display-sales/display-sales.component";
+import { DisplayRentalsComponent } from "app/pages/display-rentals/display-rentals.component";
+import { DisplayTwoBedsComponent } from "app/pages/two-beds/two-beds.component";
+import { DisplayOneBedsComponent } from "app/pages/one-beds/one-beds.component";
+import { DisplayStudiosComponent } from "app/pages/studios/studios.component";
 
 @NgModule({
   imports: [
@@ -121,6 +127,12 @@ import { ProjectsComponent } from "app/pages/projects/projects.component";
     EditListingComponent,
     LandingPageSliderComponent,
     ProjectsComponent,
+    RentalSliderComponent,
+    DisplaySalesComponent,
+    DisplayRentalsComponent,
+    DisplayTwoBedsComponent,
+    DisplayOneBedsComponent,
+    DisplayStudiosComponent,
   ],
 })
 export class AdminLayoutModule {}

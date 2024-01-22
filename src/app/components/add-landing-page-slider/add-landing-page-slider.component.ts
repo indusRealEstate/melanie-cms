@@ -7,9 +7,15 @@ import {
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
+import { DisplayOneBedsService } from "app/services/display-one-beds.service";
+import { DisplayRentalsService } from "app/services/display-rentals.service";
+import { DisplaySalesService } from "app/services/display-sales.service";
+import { DisplayStudiosService } from "app/services/display-studios.service";
+import { DisplayTwoBedsService } from "app/services/display-two-beds.service";
 import { LandingPageSliderService } from "app/services/landing-page-slider.service";
 import { ProjectsService } from "app/services/projects.service";
 import { PropertyListingService } from "app/services/property-listings.service";
+import { RentalsSliderService } from "app/services/rental.service";
 
 @Component({
   selector: "add-landing-page-slider",
@@ -45,16 +51,62 @@ export class AddLandingPageSliderDialog implements OnInit {
     public listingService: PropertyListingService,
     private landingSliderServices: LandingPageSliderService,
     private projectsServices: ProjectsService,
+    private rentalSliderServices: RentalsSliderService,
+    private displaySalesServices: DisplaySalesService,
+    private displayRentalsServices: DisplayRentalsService,
+    private displaytwobedsServices: DisplayTwoBedsService,
+    private displayonebedsServices: DisplayOneBedsService,
+    private displayStudiosServices: DisplayStudiosService,
     private dialog?: MatDialog
   ) {
-    if (data == "main") {
-      this.landingSliderServices.getallImages().subscribe((data: any[]) => {
-        this.existing_sliders_ids = data.map((item) => item.prop_id);
-      });
-    } else {
-      this.projectsServices.getallImages().subscribe((data: any[]) => {
-        this.existing_sliders_ids = data.map((item) => item.prop_id);
-      });
+    this.getExistingListings(data);
+  }
+
+  getExistingListings(type) {
+    switch (type) {
+      case "main":
+        this.landingSliderServices.getallImages().subscribe((data: any[]) => {
+          this.existing_sliders_ids = data.map((item) => item.prop_id);
+        });
+        break;
+      case "project":
+        this.projectsServices.getallImages().subscribe((data: any[]) => {
+          this.existing_sliders_ids = data.map((item) => item.prop_id);
+        });
+        break;
+      case "rental_slider":
+        this.rentalSliderServices.getallImages().subscribe((data: any[]) => {
+          this.existing_sliders_ids = data.map((item) => item.prop_id);
+        });
+        break;
+      case "d-sales":
+        this.displaySalesServices.getallImages().subscribe((data: any[]) => {
+          this.existing_sliders_ids = data.map((item) => item.prop_id);
+        });
+        break;
+      case "d-rentals":
+        this.displayRentalsServices.getallImages().subscribe((data: any[]) => {
+          this.existing_sliders_ids = data.map((item) => item.prop_id);
+        });
+        break;
+      case "two-beds":
+        this.displaytwobedsServices.getallImages().subscribe((data: any[]) => {
+          this.existing_sliders_ids = data.map((item) => item.prop_id);
+        });
+        break;
+      case "one-beds":
+        this.displayonebedsServices.getallImages().subscribe((data: any[]) => {
+          this.existing_sliders_ids = data.map((item) => item.prop_id);
+        });
+        break;
+      case "studios":
+        this.displayStudiosServices.getallImages().subscribe((data: any[]) => {
+          this.existing_sliders_ids = data.map((item) => item.prop_id);
+        });
+        break;
+
+      default:
+        break;
     }
   }
 

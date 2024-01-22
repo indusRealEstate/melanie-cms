@@ -36,8 +36,20 @@ export class CautionDialog implements OnInit {
         return "Listing";
       case "main_slider":
         return "Landing Page Slider";
+      case "rent_slider":
+        return "Rentals Slider";
       case "prj":
         return "Project";
+      case "d-sales":
+        return "Display Sale";
+      case "d-rentals":
+        return "Display Rentals";
+      case "two-beds":
+        return "Two Beds";
+      case "one-beds":
+        return "One Beds";
+      case "studios":
+        return "Studio";
       default:
         return "";
     }

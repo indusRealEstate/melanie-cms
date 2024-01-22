@@ -40,7 +40,7 @@ export class ProjectsComponent implements OnInit {
       .getallImages()
       .subscribe((data) => {
         this.dataSource = data;
-        console.log(data);
+        // console.log(data);
       })
       .add(() => {
         this.isLoading = false;
@@ -52,7 +52,7 @@ export class ProjectsComponent implements OnInit {
       width: "70rem",
       height: "35rem",
       data: {
-        img: `https://indusre.com/main_slider/${image}`,
+        img: `https://premium.indusre.com/Admin/pages/forms/uploads/property/${image}`,
       },
     });
   }

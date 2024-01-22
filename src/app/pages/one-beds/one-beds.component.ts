@@ -7,14 +7,14 @@ import { AddLandingPageSliderDialog } from "app/components/add-landing-page-slid
 import { CautionDialog } from "app/components/caution-dialog/caution-dialog.component";
 import { ImgViewDialog } from "app/components/img-view-dialog/img-view-dialog.component";
 import { AuthService } from "app/services/auth.service";
-import { LandingPageSliderService } from "app/services/landing-page-slider.service";
+import { DisplayOneBedsService } from "app/services/display-one-beds.service";
 
 @Component({
-  selector: "app-landing-page-slider",
-  templateUrl: "./landing-page-slider.component.html",
-  styleUrls: ["./landing-page-slider.component.scss"],
+  selector: "app-one-beds",
+  templateUrl: "./one-beds.component.html",
+  styleUrls: ["./one-beds.component.scss"],
 })
-export class LandingPageSliderComponent implements OnInit {
+export class DisplayOneBedsComponent implements OnInit {
   isLoading: boolean = true;
 
   dataSource = [];
@@ -24,7 +24,7 @@ export class LandingPageSliderComponent implements OnInit {
   uploading_progress: any = 0;
   uploading: boolean = false;
   constructor(
-    private landingSliderServices: LandingPageSliderService,
+    private oneBedsServices: DisplayOneBedsService,
     private dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private authService: AuthService,
@@ -36,7 +36,7 @@ export class LandingPageSliderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.landingSliderServices
+    this.oneBedsServices
       .getallImages()
       .subscribe((data) => {
         this.dataSource = data;
@@ -59,7 +59,7 @@ export class LandingPageSliderComponent implements OnInit {
 
   revertOrder() {
     this.isLoading = true;
-    this.landingSliderServices
+    this.oneBedsServices
       .getallImages()
       .subscribe((data) => {
         this.dataSource = data;
@@ -93,7 +93,7 @@ export class LandingPageSliderComponent implements OnInit {
   updateSortOrder() {
     if (this.not_saved_order == true) {
       const new_order = this.dataSource.map((item) => item.prop_id);
-      this.landingSliderServices
+      this.oneBedsServices
         .updateSortOrder(new_order)
         .subscribe((res) => {})
         .add(() => {
@@ -110,13 +110,13 @@ export class LandingPageSliderComponent implements OnInit {
       data: {
         id: slider.prop_id,
         title: slider.address,
-        type: "main_slider",
+        type: "one-beds",
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result != undefined && result.delete == true) {
-        this.landingSliderServices
+        this.oneBedsServices
           .removeSlider(slider.prop_id)
           .subscribe((res) => {
             // console.log(res);
@@ -133,12 +133,12 @@ export class LandingPageSliderComponent implements OnInit {
     const dialogRef = this.dialog.open(AddLandingPageSliderDialog, {
       width: "80%",
       height: "50rem",
-      data: "main",
+      data: "one-beds",
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result != undefined) {
-        this.landingSliderServices
+        this.oneBedsServices
           .addToSliders(result.ids)
           .subscribe((res) => {})
           .add(() => {
