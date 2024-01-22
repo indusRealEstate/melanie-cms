@@ -20,6 +20,10 @@ import { FooterComponent } from "./footer/footer.component";
 import { ImgViewDialog } from "./img-view-dialog/img-view-dialog.component";
 import { NavbarComponent } from "./navbar/navbar.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
+import { AddCategoryDialog } from "./add-category-dialog/add-category-dialog.component";
+import { AddAgentDialog } from "./add-agent-dialog/add-agent-dialog.component";
+import { MatSelectModule } from "@angular/material/select";
+import { EditAgentDialog } from "./edit-agent-dialog/edit-agent-dialog.component";
 
 @NgModule({
   imports: [
@@ -37,9 +41,9 @@ import { SidebarComponent } from "./sidebar/sidebar.component";
     MatPaginatorModule,
     MatProgressSpinnerModule,
     NgxSkeletonLoaderModule,
+    MatSelectModule,
   ],
   declarations: [
-    ///////////////////////////////
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
@@ -47,9 +51,11 @@ import { SidebarComponent } from "./sidebar/sidebar.component";
     AddImgDialog,
     ImgViewDialog,
     AddLandingPageSliderDialog,
+    AddCategoryDialog,
+    AddAgentDialog,
+    EditAgentDialog,
   ],
   exports: [
-    /////////////////////////////
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
@@ -57,6 +63,9 @@ import { SidebarComponent } from "./sidebar/sidebar.component";
     AddImgDialog,
     ImgViewDialog,
     AddLandingPageSliderDialog,
+    AddCategoryDialog,
+    AddAgentDialog,
+    EditAgentDialog,
   ],
 })
 export class ComponentsModule {}

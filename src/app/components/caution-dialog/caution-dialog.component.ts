@@ -50,6 +50,10 @@ export class CautionDialog implements OnInit {
         return "One Beds";
       case "studios":
         return "Studio";
+      case "cat":
+        return "Category";
+      case "ag":
+        return "Agent";
       default:
         return "";
     }

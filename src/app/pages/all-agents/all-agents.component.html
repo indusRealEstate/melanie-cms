@@ -1,0 +1,244 @@
+<div class="main-content">
+  <div class="progress-bar-wrapper" *ngIf="uploading">
+    <p class="mb-2 text-light">Uploading Image... {{ uploading_progress }}%</p>
+    <div class="progress-bar">
+      <div
+        class="progress-bar-fill"
+        [ngStyle]="{ 'width.%': uploading_progress % 100 }"
+      ></div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header bg-light-subtle row m-0">
+            <div class="col d-flex align-items-center">
+              <h4 class="card-title text-light">All Agents</h4>
+            </div>
+            <div class="col d-flex justify-content-end align-items-center">
+              <mat-icon
+                style="
+                  margin-right: -32px;
+                  z-index: 999;
+                  font-size: 19px;
+                  margin-top: 5px;
+                "
+                >search</mat-icon
+              >
+              <input
+                class="mr-2 search-input"
+                placeholder="Search Agents"
+                [(ngModel)]="search_text"
+                (keyup)="searchListings()"
+              />
+              <div class="btn btn-primary" (click)="addNewAgent()">
+                Add New Agent
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div
+              *ngIf="isLoading"
+              class="d-flex align-items-center justify-content-center w-100 h-20rem"
+            >
+              <mat-spinner [diameter]="50"></mat-spinner>
+            </div>
+
+            <table
+              *ngIf="!isLoading"
+              mat-table
+              [dataSource]="allAgents"
+              matSort
+              (matSortChange)="announceSortChange($event)"
+              class="mat-elevation-z8"
+            >
+              <!-- Position Column -->
+              <ng-container matColumnDef="id">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header
+                  sortActionDescription="Sort by ID"
+                >
+                  ID
+                </th>
+                <td mat-cell *matCellDef="let item">
+                  <div
+                    *ngIf="!pageChangeLoading"
+                    class="d-flex align-items-center justify-content-between maxw-8rem my-2"
+                  >
+                    <span>{{ item.id }}</span>
+                    <img
+                      (click)="enlargeImage(item.image_name)"
+                      class="member-avatar"
+                      src="{{
+                        'https://premium.indusre.com/Admin/pages/forms/uploads/agents/' +
+                          item.image_name
+                      }}"
+                      alt="img"
+                      width="80"
+                      height="80"
+                      onerror="this.src='assets/img/svg/team.svg';"
+                    />
+                  </div>
+
+                  <ngx-skeleton-loader
+                    [theme]="{
+                      width: '60px',
+                      height: '30px',
+                      'margin-top': '5px',
+                      'margin-bottom': '0px'
+                    }"
+                    *ngIf="pageChangeLoading"
+                  ></ngx-skeleton-loader>
+                </td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Full Name</th>
+                <td mat-cell *matCellDef="let item">
+                  <span *ngIf="!pageChangeLoading"
+                    ><b>{{ item.name }}</b></span
+                  >
+                  <ngx-skeleton-loader
+                    [theme]="{
+                      width: '200px',
+                      height: '30px',
+                      'margin-top': '5px',
+                      'margin-bottom': '0px'
+                    }"
+                    *ngIf="pageChangeLoading"
+                  ></ngx-skeleton-loader>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef>Email</th>
+                <td mat-cell *matCellDef="let item">
+                  <span *ngIf="!pageChangeLoading"
+                    ><b>{{ item.email }}</b></span
+                  >
+                  <ngx-skeleton-loader
+                    [theme]="{
+                      width: '100px',
+                      height: '30px',
+                      'margin-top': '5px',
+                      'margin-bottom': '0px'
+                    }"
+                    *ngIf="pageChangeLoading"
+                  ></ngx-skeleton-loader>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="role">
+                <th mat-header-cell *matHeaderCellDef>Role</th>
+                <td mat-cell *matCellDef="let item">
+                  <span *ngIf="!pageChangeLoading"
+                    ><b>{{ item.role }}</b></span
+                  >
+                  <ngx-skeleton-loader
+                    [theme]="{
+                      width: '70px',
+                      height: '30px',
+                      'margin-top': '5px',
+                      'margin-bottom': '0px'
+                    }"
+                    *ngIf="pageChangeLoading"
+                  ></ngx-skeleton-loader>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="username">
+                <th mat-header-cell *matHeaderCellDef>Username</th>
+                <td mat-cell *matCellDef="let item">
+                  <span *ngIf="!pageChangeLoading"
+                    ><b>{{ item.username }}</b></span
+                  >
+                  <ngx-skeleton-loader
+                    [theme]="{
+                      width: '70px',
+                      height: '30px',
+                      'margin-top': '5px',
+                      'margin-bottom': '0px'
+                    }"
+                    *ngIf="pageChangeLoading"
+                  ></ngx-skeleton-loader>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="password">
+                <th mat-header-cell *matHeaderCellDef>Password</th>
+                <td mat-cell *matCellDef="let item">
+                  <span *ngIf="!pageChangeLoading"
+                    ><b>{{ item.real_password }}</b></span
+                  >
+                  <ngx-skeleton-loader
+                    [theme]="{
+                      width: '70px',
+                      height: '30px',
+                      'margin-top': '5px',
+                      'margin-bottom': '0px'
+                    }"
+                    *ngIf="pageChangeLoading"
+                  ></ngx-skeleton-loader>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="action">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header
+                  sortActionDescription="Sort by date"
+                >
+                  Action
+                </th>
+                <td mat-cell *matCellDef="let item">
+                  <mat-icon
+                    mat-button
+                    [matMenuTriggerFor]="menu"
+                    class="more_actions_btn"
+                    aria-hidden="false"
+                    aria-label="More Actions"
+                    fontIcon="more_horiz"
+                  ></mat-icon>
+
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="editListing(item)">
+                      <mat-icon
+                        class="sub-menu-icon-edit"
+                        aria-hidden="false"
+                        aria-label="Edit"
+                        fontIcon="edit"
+                      ></mat-icon
+                      >Edit
+                    </button>
+                    <button mat-menu-item (click)="delete(item)">
+                      <mat-icon
+                        class="sub-menu-icon-delete"
+                        aria-hidden="false"
+                        aria-label="Edit"
+                        fontIcon="delete"
+                      ></mat-icon
+                      >Delete
+                    </button>
+                  </mat-menu>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+
+            <mat-paginator
+              #paginator
+              [pageSizeOptions]="[10, 14, 20]"
+              [length]="allAgentsCount"
+              showFirstLastButtons
+              (page)="pageChange($event)"
+            ></mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

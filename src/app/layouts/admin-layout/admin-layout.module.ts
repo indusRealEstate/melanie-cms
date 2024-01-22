@@ -40,6 +40,8 @@ import { ImageCropperModule } from "ngx-image-cropper";
 import { NgxSkeletonLoaderModule } from "ngx-skeleton-loader";
 import { DashboardComponent } from "../../pages/dashboard/dashboard.component";
 import { AdminLayoutRoutes } from "./admin-layout.routing";
+import { AllCategoriesComponent } from "app/pages/all-categories/all-categories.component";
+import { AllAgentsComponent } from "app/pages/all-agents/all-agents.component";
 
 @NgModule({
   imports: [
@@ -73,10 +75,6 @@ import { AdminLayoutRoutes } from "./admin-layout.routing";
     MatRadioModule,
   ],
   declarations: [
-    
-    //////////////////////////////
-    //// new modules /////////////
-    //////////////////////////////
     LoginComponent,
     DashboardComponent,
     OptimizeImgComponent,
@@ -91,6 +89,8 @@ import { AdminLayoutRoutes } from "./admin-layout.routing";
     DisplayTwoBedsComponent,
     DisplayOneBedsComponent,
     DisplayStudiosComponent,
+    AllCategoriesComponent,
+    AllAgentsComponent,
   ],
 })
 export class AdminLayoutModule {}

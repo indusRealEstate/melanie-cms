@@ -14,12 +14,10 @@ import { RentalSliderComponent } from "app/pages/rental-slider/rental-slider.com
 import { DisplayStudiosComponent } from "app/pages/studios/studios.component";
 import { DisplayTwoBedsComponent } from "app/pages/two-beds/two-beds.component";
 import { DashboardComponent } from "../../pages/dashboard/dashboard.component";
+import { AllCategoriesComponent } from "app/pages/all-categories/all-categories.component";
+import { AllAgentsComponent } from "app/pages/all-agents/all-agents.component";
 
 export const AdminLayoutRoutes: Routes = [
-  
-  /////////////////////////////////////////////////////////
-  ////////////////////// new routes ///////////////////////
-  /////////////////////////////////////////////////////////
   { path: "login", component: LoginComponent },
   { path: "dashboard", component: DashboardComponent },
   { path: "optimize-img", component: OptimizeImgComponent },
@@ -34,4 +32,6 @@ export const AdminLayoutRoutes: Routes = [
   { path: "display-two-beds", component: DisplayTwoBedsComponent },
   { path: "display-one-beds", component: DisplayOneBedsComponent },
   { path: "display-studios", component: DisplayStudiosComponent },
+  { path: "all-categories", component: AllCategoriesComponent },
+  { path: "all-agents", component: AllAgentsComponent },
 ];

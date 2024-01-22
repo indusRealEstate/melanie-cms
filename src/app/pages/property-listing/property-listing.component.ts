@@ -98,9 +98,10 @@ export class PropertyListingComponent implements OnInit {
   }
 
   reloadPage() {
+    this.search_text = "";
     this.isLoading = true;
     this.listingService
-      .getAllListings(10, 1, "")
+      .getAllListings(this.paginator.pageSize, this.paginator.pageIndex + 1, "")
       .subscribe((res) => {
         this.allListings = new MatTableDataSource(res.list);
         this.allListingsCount = res.count;
@@ -120,6 +121,22 @@ export class PropertyListingComponent implements OnInit {
       this.pageChangeLoading = true;
       this.listingService
         .getAllListings(this.paginator.pageSize, 1, this.search_text)
+        .subscribe((res) => {
+          this.allListings = new MatTableDataSource(res.list);
+          this.allListingsCount = res.count;
+          setTimeout(() => {
+            if (this.allListings != undefined) {
+              this.allListings.sort = this.sort;
+            }
+          });
+        })
+        .add(() => {
+          this.pageChangeLoading = false;
+        });
+    } else {
+      this.pageChangeLoading = true;
+      this.listingService
+        .getAllListings(this.paginator.pageSize, 1, "")
         .subscribe((res) => {
           this.allListings = new MatTableDataSource(res.list);
           this.allListingsCount = res.count;
@@ -188,28 +205,5 @@ export class PropertyListingComponent implements OnInit {
       .add(() => {
         this.pageChangeLoading = false;
       });
-  }
-
-  private getEventMessage(event: HttpEvent<any>) {
-    switch (event.type) {
-      case HttpEventType.Sent:
-        return `Uploading file `;
-
-      case HttpEventType.UploadProgress:
-        // Compute and show the % done:
-        const percentDone = event.total
-          ? Math.round((100 * event.loaded) / event.total)
-          : 0;
-
-        this.uploading_progress = percentDone;
-        return `File is ${percentDone}% uploaded.`;
-
-      case HttpEventType.Response:
-        this.uploading = false;
-        return `File was completely uploaded!`;
-
-      default:
-        return `File surprising upload event: ${event.type}.`;
-    }
   }
 }
