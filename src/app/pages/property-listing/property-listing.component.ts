@@ -7,15 +7,10 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatSort, Sort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
-import { AddNewAchievementDialog } from "app/components/add-new-achievement-dialog/add-new-achievement-dialog.component";
 import { CautionDialog } from "app/components/caution-dialog/caution-dialog.component";
-import { EditAchievementDialog } from "app/components/edit-achievement-dialog/edit-achievement-dialog.component";
 import { ImgViewDialog } from "app/components/img-view-dialog/img-view-dialog.component";
-import { AchievementsService } from "app/services/achievements.service";
 import { AuthService } from "app/services/auth.service";
 import { PropertyListingService } from "app/services/property-listings.service";
-import { last, map, tap } from "rxjs";
-import * as uuid from "uuid";
 
 @Component({
   selector: "app-property-listing",
@@ -46,7 +41,6 @@ export class PropertyListingComponent implements OnInit {
 
   constructor(
     private _liveAnnouncer: LiveAnnouncer,
-    private achievementsService: AchievementsService,
     private listingService: PropertyListingService,
     private router: Router,
     public dialog: MatDialog,
