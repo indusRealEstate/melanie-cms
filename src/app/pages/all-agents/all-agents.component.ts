@@ -167,7 +167,7 @@ export class AllAgentsComponent implements OnInit {
   editListing(ag: any) {
     const dialogRef = this.dialog.open(EditAgentDialog, {
       width: "40rem",
-      height: "50rem",
+      height: "55rem",
       data: {
         image: `https://premium.indusre.com/Admin/pages/forms/uploads/agents/${ag.image_name}`,
         name: ag.name,
@@ -175,6 +175,7 @@ export class AllAgentsComponent implements OnInit {
         username: ag.username,
         password: ag.password,
         email: ag.email,
+        phone_no: ag.phone_no,
       },
     });
 
@@ -220,7 +221,7 @@ export class AllAgentsComponent implements OnInit {
   addNewAgent() {
     const dialogRef = this.dialog.open(AddAgentDialog, {
       width: "40rem",
-      height: "50rem",
+      height: "55rem",
     });
 
     dialogRef.afterClosed().subscribe((result) => {

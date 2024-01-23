@@ -17,6 +17,7 @@ export class AddAgentDialog implements OnInit {
   role: any;
   username: any = "";
   email: any = "";
+  phone_no: any = "";
   password: any = "";
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -48,6 +49,7 @@ export class AddAgentDialog implements OnInit {
       this.role != undefined &&
       this.username != "" &&
       this.email != "" &&
+      this.phone_no != "" &&
       this.password != ""
     ) {
       this.dialogRef.close({
@@ -57,6 +59,7 @@ export class AddAgentDialog implements OnInit {
         username: this.username,
         email: this.email,
         password: this.password,
+        phone_no: this.phone_no,
       });
     }
   }

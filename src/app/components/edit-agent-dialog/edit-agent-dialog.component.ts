@@ -19,6 +19,7 @@ export class EditAgentDialog implements OnInit {
   username: any = "";
   email: any = "";
   password: any = "";
+  phone_no: any = "";
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<EditAgentDialog>,
@@ -30,6 +31,7 @@ export class EditAgentDialog implements OnInit {
     this.username = data.username;
     this.email = data.email;
     this.password = data.password;
+    this.phone_no = data.phone_no;
   }
 
   ngOnInit() {}
@@ -56,6 +58,7 @@ export class EditAgentDialog implements OnInit {
       this.role != undefined &&
       this.username != "" &&
       this.email != "" &&
+      this.phone_no != "" &&
       this.password != ""
     ) {
       this.dialogRef.close({
@@ -66,6 +69,7 @@ export class EditAgentDialog implements OnInit {
         username: this.username,
         email: this.email,
         password: this.password,
+        phone_no: this.phone_no,
       });
     }
   }
