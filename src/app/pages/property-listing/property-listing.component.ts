@@ -186,7 +186,7 @@ export class PropertyListingComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result != undefined && result.delete == true) {
         this.listingService
-          .deleteListing(l.prop_id, l.image1)
+          .deleteListing(l.prop_id, l.image1, l.is_project)
           .subscribe((res) => {
             this.openSnackBar("Listing deleted successfully");
             this.reloadPage();

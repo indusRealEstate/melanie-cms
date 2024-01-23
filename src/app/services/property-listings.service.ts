@@ -98,7 +98,7 @@ export class PropertyListingService {
       );
   }
 
-  deleteListing(id: any, img: any) {
+  deleteListing(id: any, img: any, is_project: any) {
     const url = `${API_URL}/delete_listing.php`;
     return this.http
       .post<any>(
@@ -106,6 +106,7 @@ export class PropertyListingService {
         JSON.stringify({
           id: id,
           img: img,
+          is_project: is_project,
         })
       )
       .pipe(
