@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { HttpEvent, HttpEventType } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
@@ -214,6 +215,23 @@ export class EditListingComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  imageDrop(event: CdkDragDrop<any>, type) {
+    console.log(event, type);
+    if (type == "g") {
+      moveItemInArray(
+        this.gallary_imgs,
+        event.previousContainer.data.index,
+        event.container.data.index
+      );
+    } else {
+      moveItemInArray(
+        this.floor_imgs,
+        event.previousContainer.data.index,
+        event.container.data.index
+      );
+    }
+  }
 
   addNewFeature(feature) {
     this.features.push(feature);
