@@ -12,6 +12,7 @@ export const ROUTES: RouteInfo[] = [
   { path: "/property-listings", title: "All Listings", icon: "apartment", class: "" },
   { path: "/all-categories", title: "All Categories", icon: "category", class: "" },
   { path: "/all-agents", title: "All Agents", icon: "group", class: "" },
+  { path: "/in-focus", title: "In Focus", icon: "filter_frames", class: "" },
   { path: "/landing-page-slider", title: "Landing Page Slider", icon: "view_carousel", class: "" },
   { path: "/rental-slider", title: "Rentals Slider", icon: "view_carousel", class: "" },
   { path: "/display-sales", title: "Display Sales", icon: "holiday_village", class: "" },

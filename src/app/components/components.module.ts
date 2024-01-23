@@ -24,6 +24,7 @@ import { AddCategoryDialog } from "./add-category-dialog/add-category-dialog.com
 import { AddAgentDialog } from "./add-agent-dialog/add-agent-dialog.component";
 import { MatSelectModule } from "@angular/material/select";
 import { EditAgentDialog } from "./edit-agent-dialog/edit-agent-dialog.component";
+import { SelectInFocusDialog } from "./select-infocus-dialog/select-infocus-dialog.component";
 
 @NgModule({
   imports: [
@@ -54,6 +55,7 @@ import { EditAgentDialog } from "./edit-agent-dialog/edit-agent-dialog.component
     AddCategoryDialog,
     AddAgentDialog,
     EditAgentDialog,
+    SelectInFocusDialog,
   ],
   exports: [
     FooterComponent,
@@ -66,6 +68,7 @@ import { EditAgentDialog } from "./edit-agent-dialog/edit-agent-dialog.component
     AddCategoryDialog,
     AddAgentDialog,
     EditAgentDialog,
+    SelectInFocusDialog,
   ],
 })
 export class ComponentsModule {}

@@ -16,6 +16,7 @@ import { DisplayTwoBedsComponent } from "app/pages/two-beds/two-beds.component";
 import { DashboardComponent } from "../../pages/dashboard/dashboard.component";
 import { AllCategoriesComponent } from "app/pages/all-categories/all-categories.component";
 import { AllAgentsComponent } from "app/pages/all-agents/all-agents.component";
+import { InFocusComponent } from "app/pages/in-focus/in-focus.component";
 
 export const AdminLayoutRoutes: Routes = [
   { path: "login", component: LoginComponent },
@@ -34,4 +35,5 @@ export const AdminLayoutRoutes: Routes = [
   { path: "display-studios", component: DisplayStudiosComponent },
   { path: "all-categories", component: AllCategoriesComponent },
   { path: "all-agents", component: AllAgentsComponent },
+  { path: "in-focus", component: InFocusComponent },
 ];

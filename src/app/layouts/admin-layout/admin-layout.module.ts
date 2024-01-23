@@ -42,6 +42,7 @@ import { DashboardComponent } from "../../pages/dashboard/dashboard.component";
 import { AdminLayoutRoutes } from "./admin-layout.routing";
 import { AllCategoriesComponent } from "app/pages/all-categories/all-categories.component";
 import { AllAgentsComponent } from "app/pages/all-agents/all-agents.component";
+import { InFocusComponent } from "app/pages/in-focus/in-focus.component";
 
 @NgModule({
   imports: [
@@ -91,6 +92,7 @@ import { AllAgentsComponent } from "app/pages/all-agents/all-agents.component";
     DisplayStudiosComponent,
     AllCategoriesComponent,
     AllAgentsComponent,
+    InFocusComponent,
   ],
 })
 export class AdminLayoutModule {}

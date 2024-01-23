@@ -1,0 +1,97 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header bg-light-subtle row m-0">
+            <div class="col d-flex align-items-center">
+              <h4 class="card-title text-light">In Focus</h4>
+            </div>
+
+            <div class="col d-flex justify-content-end">
+              <div
+                class="btn"
+                [ngClass]="checkPopupChange() ? 'btn-primary' : ''"
+                (click)="submit()"
+              >
+                Update
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div
+              *ngIf="isLoading"
+              class="d-flex align-items-center justify-content-center w-100 h-20rem"
+            >
+              <mat-spinner [diameter]="50"></mat-spinner>
+            </div>
+
+            <div *ngIf="!isLoading">
+              <div
+                *ngIf="in_focus_change_loading"
+                class="d-flex align-items-center justify-content-center w-100"
+                style="height: 10rem"
+              >
+                <mat-spinner [diameter]="50"></mat-spinner>
+              </div>
+              <div class="row m-0 mt-3" *ngIf="!in_focus_change_loading">
+                <div class="col-6">
+                  <img
+                    class="w-100 maxh20rem contain"
+                    src="{{ image }}"
+                    alt=""
+                  />
+                </div>
+                <div class="col-6">
+                  <p class="fz20"><b>ID :</b> {{ pr_data.prop_id }}</p>
+                  <p class="fz20"><b>Address :</b> {{ pr_data.address }}</p>
+                  <p class="fz20"><b>Status :</b> {{ pr_data.status }}</p>
+                  <p class="fz20"><b>Category :</b> {{ pr_data.cat_name }}</p>
+                  <p class="fz20"><b>Price :</b> {{ pr_data.price }}</p>
+
+                  <div class="btn btn-primary mt-3" (click)="changeInFocus()">
+                    Change Property
+                  </div>
+                </div>
+              </div>
+              <h4 class="mt-4" style="color: #c49f5a"><b>Main Header</b></h4>
+              <editor
+                apiKey="uriyx9p2q6b73b9ngch8oowagdehtak3ytc2v1r9x99qv2rw"
+                [init]="tinyMceConfig"
+                [(ngModel)]="main_header"
+              ></editor>
+              <h4 class="mt-4" style="color: #c49f5a"><b>Sub Header</b></h4>
+              <editor
+                apiKey="uriyx9p2q6b73b9ngch8oowagdehtak3ytc2v1r9x99qv2rw"
+                [init]="tinyMceConfig"
+                [(ngModel)]="sub_header"
+              ></editor>
+              <h4 class="mt-4" style="color: #c49f5a"><b>Body</b></h4>
+              <editor
+                apiKey="uriyx9p2q6b73b9ngch8oowagdehtak3ytc2v1r9x99qv2rw"
+                [init]="tinyMceConfig"
+                [(ngModel)]="body_text"
+              ></editor>
+              <h4 class="mt-4" style="color: #c49f5a"><b>Description</b></h4>
+              <editor
+                apiKey="uriyx9p2q6b73b9ngch8oowagdehtak3ytc2v1r9x99qv2rw"
+                [init]="tinyMceConfig"
+                [(ngModel)]="description"
+              ></editor>
+              <h4 class="mt-4" style="color: #c49f5a"><b>Area Range</b></h4>
+              <mat-form-field appearance="outline">
+                <mat-label>Area Range</mat-label>
+                <input
+                  matInput
+                  placeholder="Enter area range"
+                  [(ngModel)]="area_range"
+                  type="text"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
