@@ -4,6 +4,7 @@ import {
   MatDialog,
   MatDialogRef,
 } from "@angular/material/dialog";
+import { Countries } from "app/utils/countries";
 
 @Component({
   selector: "edit-agent-dialog",
@@ -20,11 +21,25 @@ export class EditAgentDialog implements OnInit {
   email: any = "";
   password: any = "";
   phone_no: any = "";
+  countries: any = [];
+  countriesClass: Countries = new Countries();
+
+  nationality: any = "";
+  brn: any = "";
+
+  description: any = "";
+
+  language: String = "";
+  selected_languages: any[] = [];
+
+  areas: String = "";
+  selected_areas: any[] = [];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<EditAgentDialog>,
     private dialog?: MatDialog
   ) {
+    this.countries = this.countriesClass.all_countries;
     this.image = data.image;
     this.name = data.name;
     this.role = data.role;
@@ -32,6 +47,44 @@ export class EditAgentDialog implements OnInit {
     this.email = data.email;
     this.password = data.password;
     this.phone_no = data.phone_no;
+
+    this.nationality = data.nationality;
+    this.brn = data.brn;
+    this.description = data.description;
+    if (data.languages != "" && data.languages != undefined) {
+      this.selected_languages = JSON.parse(data.languages);
+    }
+    if (data.areas != "" && data.areas != undefined) {
+      this.selected_areas = JSON.parse(data.areas);
+    }
+  }
+
+  addLanguage(type) {
+    if (type == "l") {
+      if (
+        this.language != "" &&
+        !this.selected_languages.includes(this.language.toLowerCase())
+      ) {
+        this.selected_languages.push(this.language.toLowerCase());
+        this.language = "";
+      }
+    } else {
+      if (
+        this.areas != "" &&
+        !this.selected_areas.includes(this.areas.toLowerCase())
+      ) {
+        this.selected_areas.push(this.areas.toLowerCase());
+        this.areas = "";
+      }
+    }
+  }
+
+  removeLanguage(index, type) {
+    if (type == "l") {
+      this.selected_languages.splice(index, 1);
+    } else {
+      this.selected_areas.splice(index, 1);
+    }
   }
 
   ngOnInit() {}
@@ -70,6 +123,11 @@ export class EditAgentDialog implements OnInit {
         email: this.email,
         password: this.password,
         phone_no: this.phone_no,
+        nationality: this.nationality,
+        brn: this.brn,
+        description: this.description,
+        languages: this.selected_languages,
+        areas: this.selected_areas,
       });
     }
   }

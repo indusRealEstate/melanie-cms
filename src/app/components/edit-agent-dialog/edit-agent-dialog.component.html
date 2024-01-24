@@ -34,53 +34,207 @@
         (change)="handleFileInput($event.target.files)"
       />
     </div>
+    <div class="row m-0">
+      <div class="col-6 pl-0">
+        <mat-form-field appearance="outline">
+          <mat-label>Agent Name</mat-label>
+          <input
+            matInput
+            placeholder="Enter name"
+            [(ngModel)]="name"
+            type="text"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Role</mat-label>
+          <mat-select [(ngModel)]="role">
+            <mat-option value="admin"> Admin </mat-option>
+            <mat-option value="agent"> Agent </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            placeholder="Enter email"
+            [(ngModel)]="email"
+            type="email"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Phone No.</mat-label>
+          <input
+            matInput
+            placeholder="Enter phone number"
+            [(ngModel)]="phone_no"
+            type="number"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-6 pr-0">
+        <mat-form-field appearance="outline">
+          <mat-label>Username</mat-label>
+          <input
+            matInput
+            placeholder="Enter username"
+            [(ngModel)]="username"
+            type="text"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            placeholder="Enter password"
+            [(ngModel)]="password"
+            type="text"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Nationality</mat-label>
+          <mat-select [(ngModel)]="nationality">
+            <mat-option *ngFor="let c of countries" [value]="c.name">
+              {{ c.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>BRN</mat-label>
+          <input
+            matInput
+            placeholder="Enter BRN"
+            [(ngModel)]="brn"
+            type="text"
+          />
+        </mat-form-field>
+      </div>
+    </div>
     <mat-form-field appearance="outline">
-      <mat-label>Agent Name</mat-label>
-      <input matInput placeholder="Enter name" [(ngModel)]="name" type="text" />
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Role</mat-label>
-      <mat-select [(ngModel)]="role">
-        <mat-option value="admin"> Admin </mat-option>
-        <mat-option value="agent"> Agent </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Email</mat-label>
-      <input
+      <mat-label>Description</mat-label>
+      <textarea
         matInput
-        placeholder="Enter email"
-        [(ngModel)]="email"
-        type="email"
-      />
+        placeholder="Enter description"
+        rows="4"
+        [(ngModel)]="description"
+      ></textarea>
     </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Phone No.</mat-label>
-      <input
-        matInput
-        placeholder="Enter phone number"
-        [(ngModel)]="phone_no"
-        type="number"
-      />
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Username</mat-label>
-      <input
-        matInput
-        placeholder="Enter username"
-        [(ngModel)]="username"
-        type="text"
-      />
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Password</mat-label>
-      <input
-        matInput
-        placeholder="Enter password"
-        [(ngModel)]="password"
-        type="text"
-      />
-    </mat-form-field>
+    <div class="row m-0">
+      <div class="col-4 pl-0">
+        <div class="row m-0">
+          <div class="col-9 pl-0">
+            <mat-form-field appearance="outline">
+              <mat-label>Enter Language</mat-label>
+              <input
+                matInput
+                placeholder="Enter language"
+                [(ngModel)]="language"
+                type="text"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-3 p-0">
+            <div class="btn btn-primary" (click)="addLanguage('l')">Add</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-8 p-0">
+        <div
+          class="row m-0 align-items-center"
+          style="
+            background: #faebd787;
+            border: 1px solid #f8ce97;
+            border-radius: 4px;
+            overflow: auto;
+            max-height: 5rem;
+            min-height: 4rem;
+          "
+        >
+          <div
+            class="lang-chip"
+            *ngFor="let l of selected_languages;let index = index"
+            style="
+              background: #e8a955;
+              color: white;
+              margin: 10px;
+              margin-right: 0;
+              padding: 1px 5px;
+              border-radius: 3px;
+            "
+          >
+            {{ l | titlecase }}
+            <mat-icon
+              style="
+                cursor: pointer;
+                margin-left: 3px;
+                font-size: 20px;
+                margin-bottom: -10px;
+              "
+              (click)="removeLanguage(index, 'l')"
+              >cancel</mat-icon
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row m-0">
+      <div class="col-4 pl-0">
+        <div class="row m-0">
+          <div class="col-9 pl-0">
+            <mat-form-field appearance="outline">
+              <mat-label>Enter Areas</mat-label>
+              <input
+                matInput
+                placeholder="Enter areas"
+                [(ngModel)]="areas"
+                type="text"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-3 p-0">
+            <div class="btn btn-primary" (click)="addLanguage('a')">Add</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-8 p-0">
+        <div
+          class="row m-0 align-items-center"
+          style="
+            background: #faebd787;
+            border: 1px solid #f8ce97;
+            border-radius: 4px;
+            overflow: auto;
+            max-height: 5rem;
+            min-height: 4rem;
+          "
+        >
+          <div
+            class="lang-chip"
+            *ngFor="let a of selected_areas;let index = index"
+            style="
+              background: #e8a955;
+              color: white;
+              margin: 10px;
+              margin-right: 0;
+              padding: 1px 5px;
+              border-radius: 3px;
+            "
+          >
+            {{ a | titlecase }}
+            <mat-icon
+              style="
+                cursor: pointer;
+                margin-left: 3px;
+                font-size: 20px;
+                margin-bottom: -10px;
+              "
+              (click)="removeLanguage(index, 'a')"
+              >cancel</mat-icon
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="row m-0 align-items-center justify-content-end">
       <div class="btn save-btn" (click)="submit()">Submit</div>
     </div>

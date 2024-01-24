@@ -1,5 +1,5 @@
 import { DragDropModule } from "@angular/cdk/drag-drop";
-import { CommonModule } from "@angular/common";
+import { CommonModule, NgOptimizedImage } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
@@ -23,9 +23,12 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { RouterModule } from "@angular/router";
 import { EditorModule } from "@tinymce/tinymce-angular";
 import { AddNewListingComponent } from "app/pages/add-new-listing/add-new-listing.component";
+import { AllAgentsComponent } from "app/pages/all-agents/all-agents.component";
+import { AllCategoriesComponent } from "app/pages/all-categories/all-categories.component";
 import { DisplayRentalsComponent } from "app/pages/display-rentals/display-rentals.component";
 import { DisplaySalesComponent } from "app/pages/display-sales/display-sales.component";
 import { EditListingComponent } from "app/pages/edit-listing/edit-listing.component";
+import { InFocusComponent } from "app/pages/in-focus/in-focus.component";
 import { LandingPageSliderComponent } from "app/pages/landing-page-slider/landing-page-slider.component";
 import { LoginComponent } from "app/pages/login/login.component";
 import { DisplayOneBedsComponent } from "app/pages/one-beds/one-beds.component";
@@ -40,9 +43,6 @@ import { ImageCropperModule } from "ngx-image-cropper";
 import { NgxSkeletonLoaderModule } from "ngx-skeleton-loader";
 import { DashboardComponent } from "../../pages/dashboard/dashboard.component";
 import { AdminLayoutRoutes } from "./admin-layout.routing";
-import { AllCategoriesComponent } from "app/pages/all-categories/all-categories.component";
-import { AllAgentsComponent } from "app/pages/all-agents/all-agents.component";
-import { InFocusComponent } from "app/pages/in-focus/in-focus.component";
 
 @NgModule({
   imports: [
@@ -74,6 +74,7 @@ import { InFocusComponent } from "app/pages/in-focus/in-focus.component";
     NgxDropzoneModule,
     MatSlideToggleModule,
     MatRadioModule,
+    NgOptimizedImage,
   ],
   declarations: [
     LoginComponent,

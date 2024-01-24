@@ -4,6 +4,7 @@ import {
   MatDialog,
   MatDialogRef,
 } from "@angular/material/dialog";
+import { Countries } from "app/utils/countries";
 
 @Component({
   selector: "add-agent-dialog",
@@ -19,15 +20,58 @@ export class AddAgentDialog implements OnInit {
   email: any = "";
   phone_no: any = "";
   password: any = "";
+  countries: any = [];
+  countriesClass: Countries = new Countries();
+
+  nationality: any = "";
+  brn: any = "";
+
+  description: any = "";
+
+  language: String = "";
+  selected_languages: any[] = [];
+
+  areas: String = "";
+  selected_areas: any[] = [];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<AddAgentDialog>,
     private dialog?: MatDialog
-  ) {}
+  ) {
+    this.countries = this.countriesClass.all_countries;
+  }
 
   ngOnInit() {}
 
   ngAfterViewInit() {}
+
+  addLanguage(type) {
+    if (type == "l") {
+      if (
+        this.language != "" &&
+        !this.selected_languages.includes(this.language.toLowerCase())
+      ) {
+        this.selected_languages.push(this.language.toLowerCase());
+        this.language = "";
+      }
+    } else {
+      if (
+        this.areas != "" &&
+        !this.selected_areas.includes(this.areas.toLowerCase())
+      ) {
+        this.selected_areas.push(this.areas.toLowerCase());
+        this.areas = "";
+      }
+    }
+  }
+
+  removeLanguage(index, type) {
+    if (type == "l") {
+      this.selected_languages.splice(index, 1);
+    } else {
+      this.selected_areas.splice(index, 1);
+    }
+  }
 
   handleFileInput(files: any) {
     this.image_file = files[0];
@@ -60,6 +104,11 @@ export class AddAgentDialog implements OnInit {
         email: this.email,
         password: this.password,
         phone_no: this.phone_no,
+        nationality: this.nationality,
+        brn: this.brn,
+        description: this.description,
+        languages: this.selected_languages,
+        areas: this.selected_areas,
       });
     }
   }

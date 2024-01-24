@@ -80,13 +80,14 @@
                     <img
                       style="cursor: pointer"
                       (click)="enlargeImage(data.image1)"
-                      src="{{
+                      ngSrc="{{
                         'https://premium.indusre.com/Admin/pages/forms/uploads/property/' +
                           data.image1
                       }}"
                       alt="img"
                       width="200"
                       height="100"
+                      priority
                     />
                   </td>
                   <td>

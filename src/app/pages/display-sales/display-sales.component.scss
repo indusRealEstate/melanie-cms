@@ -125,3 +125,8 @@ th.mat-sort-header-sorted {
     transform: scaleX(1.2) scaleY(1.2);
   }
 }
+
+// ::ng-deep .cdk-drop-list .cdk-drag-placeholder{
+//   pointer-events: unset !important;
+//   cursor: grabbing !important;
+// }
