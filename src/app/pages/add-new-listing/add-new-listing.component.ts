@@ -148,9 +148,19 @@ export class AddNewListingComponent implements OnInit {
         event.previousContainer.data.index,
         event.container.data.index
       );
+      moveItemInArray(
+        this.gallary_imgs_files,
+        event.previousContainer.data.index,
+        event.container.data.index
+      );
     } else {
       moveItemInArray(
         this.floor_imgs,
+        event.previousContainer.data.index,
+        event.container.data.index
+      );
+      moveItemInArray(
+        this.floor_imgs_files,
         event.previousContainer.data.index,
         event.container.data.index
       );

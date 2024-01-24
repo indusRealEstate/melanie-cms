@@ -355,7 +355,6 @@ export class EditListingComponent implements OnInit {
   }
 
   save() {
-    console.log(this.old_gallary_imgs);
     if (
       this.selected_category != undefined &&
       this.selected_status != undefined &&
@@ -371,27 +370,26 @@ export class EditListingComponent implements OnInit {
       this.uploading = true;
 
       let all_gallary_imgs = [];
-      this.old_gallary_imgs.forEach((g) => {
-        if (!this.gallary_imgs_deleted.includes(g)) {
-          all_gallary_imgs.push(g);
+      this.gallary_imgs.forEach((g) => {
+        if (new String(g).startsWith("data:image")) {
+        } else {
+          all_gallary_imgs.push(new String(g).split("galary/")[1]);
         }
       });
       let gallary_imgs = [];
       if (this.gallary_imgs_files.length != 0) {
         gallary_imgs = this.gallary_imgs_files.map(
-          (f, i) =>
-            `${random_id}_g_${i}.${
-              f.name.split(".")[f.name.split(".").length - 1]
-            }`
+          (f, i) => `_g_${i}.${f.name.split(".")[f.name.split(".").length - 1]}`
         );
 
         all_gallary_imgs = [...all_gallary_imgs, ...gallary_imgs];
       }
 
       let all_floor_imgs = [];
-      this.old_floor_imgs.forEach((f) => {
-        if (!this.floor_imgs_deleted.includes(f)) {
-          all_floor_imgs.push(f);
+      this.floor_imgs.forEach((f) => {
+        if (new String(f).startsWith("data:image")) {
+        } else {
+          all_gallary_imgs.push(new String(f).split("floor/")[1]);
         }
       });
 
