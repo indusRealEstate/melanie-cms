@@ -17,6 +17,7 @@ import { DashboardComponent } from "../../pages/dashboard/dashboard.component";
 import { AllCategoriesComponent } from "app/pages/all-categories/all-categories.component";
 import { AllAgentsComponent } from "app/pages/all-agents/all-agents.component";
 import { InFocusComponent } from "app/pages/in-focus/in-focus.component";
+import { BulkResizeComponent } from "app/pages/bulk-resize/bulk-resize.component";
 
 export const AdminLayoutRoutes: Routes = [
   { path: "login", component: LoginComponent },
@@ -36,4 +37,5 @@ export const AdminLayoutRoutes: Routes = [
   { path: "all-categories", component: AllCategoriesComponent },
   { path: "all-agents", component: AllAgentsComponent },
   { path: "in-focus", component: InFocusComponent },
+  { path: "bulk-resize", component: BulkResizeComponent },
 ];

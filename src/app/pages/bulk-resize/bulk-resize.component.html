@@ -1,0 +1,121 @@
+<div class="main-content">
+  <div class="progress-bar-wrapper" *ngIf="uploading">
+    <p class="mb-2 text-light">Uploading Image... {{ uploading_progress }}%</p>
+    <div class="progress-bar">
+      <div
+        class="progress-bar-fill"
+        [ngStyle]="{ 'width.%': uploading_progress % 100 }"
+      ></div>
+    </div>
+  </div>
+  <div class="progress-bar-wrapper" *ngIf="image_processing">
+    <p class="mb-2 text-light">Image Processing...</p>
+  </div>
+  <div class="progress-bar-wrapper-download" *ngIf="downloading">
+    <p class="mb-2 text-light">Downloading...</p>
+  </div>
+
+  <ngx-dropzone
+    (change)="onDropFile($event)"
+    class="dropzone"
+    disableClick
+    accept="image/*"
+  >
+    <div class="container-fluid">
+      <!-- <div class="custom-loader">
+        <mat-spinner [diameter]="50"></mat-spinner>
+      </div> -->
+      <div class="card">
+        <div class="card-header">Select Images</div>
+        <div class="card-body" style="padding: 30px 40px">
+          <ul style="padding-left: 20px">
+            <li>Browse and select the image you want to crop or resize.</li>
+            <li>Drag-and-drop the image file.</li>
+            <li>Paste the image from the clipboard (Ctrl-V or ⌘V).</li>
+          </ul>
+          <input
+            #input
+            class="d-none"
+            multiple
+            type="file"
+            accept="image/*"
+            id="file"
+            (change)="fileChangeEvent($event.target.files)"
+          />
+          <div class="btn browse-btn" (click)="input.click()">
+            <mat-icon>cloud_upload</mat-icon>Browse...
+          </div>
+          <div class="btn browse-btn ml-3" (click)="clear()">
+            <mat-icon>delete_sweep</mat-icon>Clear
+          </div>
+        </div>
+
+        <div class="row m-0" style="padding: 15px 15px; background: #f4f4f4">
+          <div *ngFor="let img of all_images; let index = index">
+            <img src="{{ img }}" alt="" class="uploaded-imgs" />
+            <mat-icon
+              style="
+                color: white;
+                background: black;
+                border-radius: 50%;
+                cursor: pointer;
+                margin-left: -20px;
+                margin-right: 5px;
+                font-size: 25px;
+                margin-bottom: 65px;
+              "
+              (click)="removeImg(index)"
+              >cancel</mat-icon
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">Resize Option</div>
+        <div class="card-body" style="padding: 30px 40px">
+          <div class="row m-0">
+            <div class="col-6">
+              <h3 class="crop-settings-title">Scale Percentage</h3>
+              <mat-form-field appearance="outline">
+                <mat-label>Scale %</mat-label>
+                <input matInput [(ngModel)]="resize_scale" type="number" />
+              </mat-form-field>
+            </div>
+            <div class="col-6">
+              <h3 class="crop-settings-title">Quality</h3>
+              <mat-form-field appearance="outline">
+                <mat-label>Quality</mat-label>
+                <input matInput [(ngModel)]="img_quality" type="number" />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Save Image</div>
+        <div class="card-body" style="padding: 30px 40px">
+          <div class="row m-0">
+            <div class="col-6">
+              <h3 class="crop-settings-title">Export As</h3>
+              <mat-form-field appearance="outline">
+                <mat-label>Image Formats</mat-label>
+                <mat-select [(ngModel)]="img_format">
+                  <mat-option *ngFor="let f of imgFormats" [value]="f.value">
+                    {{ f.viewValue }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row m-0 justify-content-end">
+            <div class="btn browse-btn ml-3" (click)="download()">
+              <mat-icon>cloud_download</mat-icon>Download
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ngx-dropzone>
+</div>

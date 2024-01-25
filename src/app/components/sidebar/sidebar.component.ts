@@ -22,6 +22,7 @@ export const ROUTES: RouteInfo[] = [
   { path: "/display-one-beds", title: "Display One Beds", icon: "holiday_village", class: "" },
   { path: "/display-studios", title: "Display Studios", icon: "holiday_village", class: "" },
   { path: "/optimize-img", title: "Optimize Image", icon: "compare", class: "" },
+  { path: "/bulk-resize", title: "Bulk Resize", icon: "filter", class: "" },
 ];
 
 @Component({

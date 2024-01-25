@@ -42,6 +42,33 @@ export class ImageOptimizeService {
       })
     );
   }
+  bulkResize(images: any, options: any): Observable<any> {
+    const url = `${this.apiUrl}/bulk-resize`;
+    const req = new HttpRequest(
+      "POST",
+      url,
+      {
+        images,
+        options,
+      },
+      {
+        reportProgress: true,
+        responseType: "json",
+      }
+    );
+
+    return this.http.request(req).pipe(
+      catchError((error: HttpErrorResponse) => {
+        // Handle the error here
+        console.error("API request failed:", error);
+
+        // Rethrow the error or return a custom error object
+        return throwError(
+          "An error occurred during the API request. Please try again."
+        );
+      })
+    );
+  }
 
   upscaleImage(imageData: any) {
     const url = `http://127.0.0.1:5000/img`;

@@ -43,6 +43,7 @@ import { ImageCropperModule } from "ngx-image-cropper";
 import { NgxSkeletonLoaderModule } from "ngx-skeleton-loader";
 import { DashboardComponent } from "../../pages/dashboard/dashboard.component";
 import { AdminLayoutRoutes } from "./admin-layout.routing";
+import { BulkResizeComponent } from "app/pages/bulk-resize/bulk-resize.component";
 
 @NgModule({
   imports: [
@@ -94,6 +95,7 @@ import { AdminLayoutRoutes } from "./admin-layout.routing";
     AllCategoriesComponent,
     AllAgentsComponent,
     InFocusComponent,
+    BulkResizeComponent,
   ],
 })
 export class AdminLayoutModule {}
