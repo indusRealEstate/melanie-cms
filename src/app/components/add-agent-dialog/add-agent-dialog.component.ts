@@ -33,6 +33,8 @@ export class AddAgentDialog implements OnInit {
 
   areas: String = "";
   selected_areas: any[] = [];
+
+  exp_since: any ;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<AddAgentDialog>,
@@ -109,6 +111,7 @@ export class AddAgentDialog implements OnInit {
         description: this.description,
         languages: this.selected_languages,
         areas: this.selected_areas,
+        exp_since: this.exp_since,
       });
     }
   }

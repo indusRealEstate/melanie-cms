@@ -181,6 +181,7 @@ export class AllAgentsComponent implements OnInit {
         description: ag.description,
         languages: ag.languages,
         areas: ag.areas,
+        exp_since: ag.exp_since,
       },
     });
 

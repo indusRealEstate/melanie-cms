@@ -34,6 +34,7 @@ export class EditAgentDialog implements OnInit {
 
   areas: String = "";
   selected_areas: any[] = [];
+  exp_since: any ;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<EditAgentDialog>,
@@ -47,6 +48,7 @@ export class EditAgentDialog implements OnInit {
     this.email = data.email;
     this.password = data.password;
     this.phone_no = data.phone_no;
+    this.exp_since = data.exp_since;
 
     this.nationality = data.nationality;
     this.brn = data.brn;
@@ -128,6 +130,7 @@ export class EditAgentDialog implements OnInit {
         description: this.description,
         languages: this.selected_languages,
         areas: this.selected_areas,
+        exp_since: this.exp_since,
       });
     }
   }
