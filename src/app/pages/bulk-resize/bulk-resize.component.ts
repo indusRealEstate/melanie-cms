@@ -164,6 +164,7 @@ export class BulkResizeComponent implements OnInit {
         };
 
         // console.log(this.all_images_files);
+        this.uploading = true;
         this.imgService
           .bulkResize(this.all_images_files, options)
           .pipe(
@@ -194,9 +195,16 @@ export class BulkResizeComponent implements OnInit {
           : 0;
 
         this.uploading_progress = percentDone;
+
+        if (percentDone == 100) {
+          this.uploading = false;
+          this.image_processing = true;
+        }
+
         return "upload";
 
       case HttpEventType.DownloadProgress:
+        this.image_processing = false;
         this.downloading = true;
         // Compute and show the % done:
         return "download";
