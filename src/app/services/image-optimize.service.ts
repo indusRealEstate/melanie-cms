@@ -5,7 +5,7 @@ import {
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
-import { catchError, map } from "rxjs/operators";
+import { catchError, map, timeout } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
@@ -42,22 +42,15 @@ export class ImageOptimizeService {
       })
     );
   }
-  bulkResize(images: any, options: any): Observable<any> {
+  bulkResize(data: any): Observable<any> {
     const url = `${this.apiUrl}/bulk-resize`;
-    const req = new HttpRequest(
-      "POST",
-      url,
-      {
-        images,
-        options,
-      },
-      {
-        reportProgress: true,
-        responseType: "json",
-      }
-    );
+    const req = new HttpRequest("POST", url, data, {
+      reportProgress: true,
+      responseType: "json",
+    });
 
     return this.http.request(req).pipe(
+      timeout(6000000),
       catchError((error: HttpErrorResponse) => {
         // Handle the error here
         console.error("API request failed:", error);

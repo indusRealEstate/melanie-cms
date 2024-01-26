@@ -30,7 +30,9 @@ export class BulkResizeComponent implements OnInit {
 
   all_images: any[] = [];
 
-  all_images_files: any[] = [];
+  all_images_info: any[] = [];
+
+  all_images_files_raw: any[] = [];
 
   constructor(
     private imgService: ImageOptimizeService,
@@ -55,8 +57,8 @@ export class BulkResizeComponent implements OnInit {
     { value: "png", viewValue: "PNG - Portable Network Graphics" },
     { value: "jpg", viewValue: "JPG - JPEG Image" },
     { value: "webp", viewValue: "WEBP - WebP Image" },
-    { value: "avif", viewValue: "AVIF - AV1 Image File Format" },
-    { value: "tiff", viewValue: "TIFF - Tagged Image File Format" },
+    // { value: "avif", viewValue: "AVIF - AV1 Image File Format" },
+    // { value: "tiff", viewValue: "TIFF - Tagged Image File Format" },
   ];
 
   @HostListener("paste", ["$event"])
@@ -65,24 +67,26 @@ export class BulkResizeComponent implements OnInit {
       e.clipboardData.files.length != 0 &&
       e.clipboardData.files[0].type.startsWith("image")
     ) {
-      const reader = new FileReader();
+      Array.from(e.clipboardData.files).forEach((file) => {
+        const reader = new FileReader();
 
-      reader.onload = (event) => {
-        this.all_images.push(event.target.result);
+        reader.onload = (event) => {
+          this.all_images.push(event.target.result);
 
-        var img = new Image();
-        img.onload = () => {
-          this.all_images_files.push({
-            data: event.target.result.toString().split(",")[1],
-            width: img.width,
-            height: img.height,
-          });
+          var img = new Image();
+          img.onload = () => {
+            this.all_images_files_raw.push({
+              file: file,
+              width: img.width,
+              height: img.height,
+            });
+          };
+
+          img.src = event.target.result.toString();
         };
 
-        img.src = event.target.result.toString();
-      };
-
-      reader.readAsDataURL(e.clipboardData.files[0]);
+        reader.readAsDataURL(file);
+      });
     }
   }
 
@@ -90,24 +94,26 @@ export class BulkResizeComponent implements OnInit {
 
   onDropFile(event) {
     if (event.addedFiles != undefined) {
-      const reader = new FileReader();
+      Array.from(event.addedFiles).forEach((file: File) => {
+        const reader = new FileReader();
 
-      reader.onload = (event) => {
-        this.all_images.push(event.target.result);
+        reader.onload = (event) => {
+          this.all_images.push(event.target.result);
 
-        var img = new Image();
-        img.onload = () => {
-          this.all_images_files.push({
-            data: event.target.result.toString().split(",")[1],
-            width: img.width,
-            height: img.height,
-          });
+          var img = new Image();
+          img.onload = () => {
+            this.all_images_files_raw.push({
+              file: file,
+              width: img.width,
+              height: img.height,
+            });
+          };
+
+          img.src = event.target.result.toString();
         };
 
-        img.src = event.target.result.toString();
-      };
-
-      reader.readAsDataURL(event.addedFiles[0]);
+        reader.readAsDataURL(file);
+      });
     }
   }
   ////////////////////////////////
@@ -124,8 +130,8 @@ export class BulkResizeComponent implements OnInit {
 
         var img = new Image();
         img.onload = () => {
-          this.all_images_files.push({
-            data: event.target.result.toString().split(",")[1],
+          this.all_images_files_raw.push({
+            file: file,
             width: img.width,
             height: img.height,
           });
@@ -140,7 +146,8 @@ export class BulkResizeComponent implements OnInit {
 
   removeImg(index) {
     this.all_images.splice(index, 1);
-    this.all_images_files.splice(index, 1);
+    this.all_images_files_raw.splice(index, 1);
+    this.all_images_info.splice(index, 1);
   }
 
   ngAfterViewInit() {}
@@ -163,10 +170,21 @@ export class BulkResizeComponent implements OnInit {
           format: this.img_format,
         };
 
+        const formData = new FormData();
+        formData.append("options", JSON.stringify(options));
+
+        this.all_images_files_raw.forEach((data, index) => {
+          formData.append("files[]", data.file);
+          formData.append(
+            `${index}_img`,
+            JSON.stringify({ width: data.width, height: data.height })
+          );
+        });
+
         // console.log(this.all_images_files);
         this.uploading = true;
         this.imgService
-          .bulkResize(this.all_images_files, options)
+          .bulkResize(formData)
           .pipe(
             map((event) => this.getEventMessage(event)),
             tap((message) => {
@@ -273,7 +291,8 @@ export class BulkResizeComponent implements OnInit {
 
   clear() {
     this.all_images.length = 0;
-    this.all_images_files.length = 0;
+    this.all_images_files_raw.length = 0;
+    this.all_images_info.length = 0;
     this.img_format = null;
   }
 }
