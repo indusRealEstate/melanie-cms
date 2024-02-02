@@ -6,6 +6,7 @@ import { HttpEvent, HttpEventType } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ImageOptimizeService } from "app/services/image-optimize.service";
 import { last, map, tap } from "rxjs";
+import { CONNREFUSED } from "dns";
 
 @Component({
   selector: "app-bulk-resize",

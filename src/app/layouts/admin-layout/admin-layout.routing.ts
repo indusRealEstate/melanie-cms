@@ -18,6 +18,7 @@ import { AllCategoriesComponent } from "app/pages/all-categories/all-categories.
 import { AllAgentsComponent } from "app/pages/all-agents/all-agents.component";
 import { InFocusComponent } from "app/pages/in-focus/in-focus.component";
 import { BulkResizeComponent } from "app/pages/bulk-resize/bulk-resize.component";
+import { ChatBetaComponent } from "app/pages/chat-beta/chat-beta.component";
 
 export const AdminLayoutRoutes: Routes = [
   { path: "login", component: LoginComponent },
@@ -38,4 +39,5 @@ export const AdminLayoutRoutes: Routes = [
   { path: "all-agents", component: AllAgentsComponent },
   { path: "in-focus", component: InFocusComponent },
   { path: "bulk-resize", component: BulkResizeComponent },
+  { path: "chat-beta", component: ChatBetaComponent },
 ];

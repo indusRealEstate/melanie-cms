@@ -44,6 +44,7 @@ import { NgxSkeletonLoaderModule } from "ngx-skeleton-loader";
 import { DashboardComponent } from "../../pages/dashboard/dashboard.component";
 import { AdminLayoutRoutes } from "./admin-layout.routing";
 import { BulkResizeComponent } from "app/pages/bulk-resize/bulk-resize.component";
+import { ChatBetaComponent } from "app/pages/chat-beta/chat-beta.component";
 
 @NgModule({
   imports: [
@@ -96,6 +97,7 @@ import { BulkResizeComponent } from "app/pages/bulk-resize/bulk-resize.component
     AllAgentsComponent,
     InFocusComponent,
     BulkResizeComponent,
+    ChatBetaComponent,
   ],
 })
 export class AdminLayoutModule {}

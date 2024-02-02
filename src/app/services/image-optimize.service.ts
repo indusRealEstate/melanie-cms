@@ -5,13 +5,14 @@ import {
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
-import { catchError, map, timeout } from "rxjs/operators";
+import { catchError, map, retry, timeout } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
 })
 export class ImageOptimizeService {
   private apiUrl = "https://ireproperty.com";
+  // private apiUrl = "http://localhost:3000";
 
   constructor(private http: HttpClient) {}
 
@@ -31,6 +32,8 @@ export class ImageOptimizeService {
     );
 
     return this.http.request(req).pipe(
+      timeout(600000),
+      retry(3),
       catchError((error: HttpErrorResponse) => {
         // Handle the error here
         console.error("API request failed:", error);
@@ -50,7 +53,8 @@ export class ImageOptimizeService {
     });
 
     return this.http.request(req).pipe(
-      timeout(6000000),
+      timeout(600000),
+      retry(3),
       catchError((error: HttpErrorResponse) => {
         // Handle the error here
         console.error("API request failed:", error);

@@ -1,0 +1,66 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header">Beta Tests</div>
+      <div class="card-body" style="padding: 30px 40px">
+        <div class="row m-0 w-100">
+          <div class="col-9 pl-0">
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                placeholder="Test Chat.."
+                [(ngModel)]="chat_text"
+                type="text"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-3 p-0">
+            <div class="row m-0">
+              <div class="col-6 p-0">
+                <div
+                  (click)="sendMessage()"
+                  (keyup.enter)="sendMessage()"
+                  class="btn d-flex align-items-center justify-content-center"
+                  style="height: 50px; margin-top: 4px"
+                >
+                  Send
+                </div>
+              </div>
+              <div class="col-6 pr-0">
+                <input
+                  #input
+                  class="d-none"
+                  type="file"
+                  accept="image/*"
+                  id="file"
+                  (change)="fileChangeEvent($event.target.files)"
+                />
+                <div
+                  (click)="input.click()"
+                  class="btn d-flex align-items-center justify-content-center"
+                  style="height: 50px; margin-top: 4px"
+                >
+                  <mat-icon style="font-size: 24px">image</mat-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div *ngFor="let chat of socketService.all_messages">
+            <p *ngIf="chat.message.type == 'text'">
+              User_{{ chat.user }} : {{ chat.message.message }}
+            </p>
+            <img
+              *ngIf="chat.message.type == 'image'"
+              src="{{ chat.message.message }}"
+              alt=""
+              style="max-height: 400px; max-width: 500px; object-fit: contain"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
